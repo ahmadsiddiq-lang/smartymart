@@ -3,10 +3,14 @@ import { StyleSheet, Text, View } from 'react-native';
 
 export default function Verifikasi() {
     return (
-        <View>
+        <View style={styles.Container}>
             <Text>Verifikasi</Text>
         </View>
     );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+    Container: {
+        flex: 1,
+    },
+});
