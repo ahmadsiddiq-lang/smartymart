@@ -7,6 +7,7 @@ import { MainColor } from '../assets/colors';
 import Home from '../pages/Home';
 import Login from '../pages/Login';
 import Daftar from '../pages/Daftar';
+import Verifikasi from '../pages/Verifikasi';
 
 const Stack = createStackNavigator();
 
@@ -18,6 +19,7 @@ function MainNavigation() {
                 <Stack.Screen name="Home" component={Home} />
                 <Stack.Screen name="Login" component={Login} />
                 <Stack.Screen name="Daftar" component={Daftar} />
+                <Stack.Screen name="Verifikasi" component={Verifikasi} />
             </Stack.Navigator>
         </NavigationContainer>
     );

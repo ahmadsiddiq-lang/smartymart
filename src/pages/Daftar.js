@@ -14,7 +14,7 @@ export default function Daftar({ navigation }) {
 
     const handleDaftar = () => {
         if (toggleCheckBox) {
-            navigation.dispatch(StackActions.replace('Home'));
+            navigation.navigate('Verifikasi');
         } else {
             ToastAndroid.showWithGravity(
                 'Check Please',
