@@ -1,15 +1,28 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, StatusBar, Image, TextInput, TouchableOpacity, ScrollView, Keyboard } from 'react-native';
+import { StyleSheet, Text, View, StatusBar, Image, TextInput, TouchableOpacity, ScrollView, Keyboard, ToastAndroid } from 'react-native';
 import { SCREEN_WIDTH, SCREEN_HEIGHT, sizeFont, sizeHeight } from '../assets/responsive';
 import { fontBlack, MainColor, fontWhite, fontBlack1, borderBlack2 } from '../assets/colors';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { StackActions } from '@react-navigation/native';
-
+import CheckBox from '@react-native-community/checkbox';
 
 export default function Daftar({ navigation }) {
 
     const [visible, setVisible] = useState(true);
+    const [toggleCheckBox, setToggleCheckBox] = useState(false);
+
+    const handleDaftar = () => {
+        if (toggleCheckBox) {
+            navigation.dispatch(StackActions.replace('Home'));
+        } else {
+            ToastAndroid.showWithGravity(
+                'Check Please',
+                ToastAndroid.SHORT,
+                ToastAndroid.CENTER
+            );
+        }
+    };
 
     return (
         <TouchableOpacity activeOpacity={1} onPress={() => Keyboard.dismiss()} style={styles.Container}>
@@ -39,8 +52,20 @@ export default function Daftar({ navigation }) {
                             </TouchableOpacity>
                         </View>
                     </View>
-                    <TouchableOpacity activeOpacity={0.5} style={styles.Btn}>
-                        <Text style={{ color: fontWhite, fontSize: sizeFont(3.5) }}>Masuk</Text>
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <CheckBox
+                            disabled={false}
+                            value={toggleCheckBox}
+                            tintColors={{ true: MainColor }}
+                            onValueChange={(newValue) => setToggleCheckBox(newValue)}
+                        />
+                        <View style={{ display: 'flex', flexWrap: 'nowrap', flex: 1 }}>
+                            <Text style={{ fontSize: sizeFont(3), marginLeft: 10, fontFamily: 'Arial-Rounded', color: fontBlack1 }}>Saya setuju dengan <Text style={{ color: MainColor }}>Syarat & Ketentuan</Text> yang berlaku</Text>
+                        </View>
+
+                    </View>
+                    <TouchableOpacity onPress={() => handleDaftar()} activeOpacity={0.6} style={styles.Btn}>
+                        <Text style={{ color: fontWhite, fontSize: sizeFont(4) }}>Daftar</Text>
                     </TouchableOpacity>
                     <Text style={{ textAlign: 'center', fontSize: sizeFont(3.3), color: fontBlack1, fontFamily: 'Arial-Rounded' }}>Sudah memiliki akun ? <Text onPress={() => navigation.dispatch(StackActions.replace('Login'))} style={{ color: MainColor, fontSize: sizeFont(3.5) }}>Login</Text></Text>
                 </View>

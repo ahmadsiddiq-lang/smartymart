@@ -32,7 +32,7 @@ export default function Login({ navigation }) {
                         </View>
                     </View>
                     <TouchableOpacity activeOpacity={0.5} style={styles.Btn}>
-                        <Text style={{ color: fontWhite, fontSize: sizeFont(3.5) }}>Masuk</Text>
+                        <Text style={{ color: fontWhite, fontSize: sizeFont(4) }}>Masuk</Text>
                     </TouchableOpacity>
                     <Text style={{ textAlign: 'center', fontSize: sizeFont(3.3), color: fontBlack1, fontFamily: 'Arial-Rounded' }}>Belum memiliki akun ? <Text onPress={() => navigation.dispatch(StackActions.replace('Daftar'))} style={{ color: MainColor, fontSize: sizeFont(3.5) }}>Daftar</Text></Text>
                 </View>
