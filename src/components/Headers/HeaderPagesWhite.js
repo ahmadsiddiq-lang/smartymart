@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, StatusBar } from 'react-native';
-import { bgWhite, borderBlack2, fontBlack, fontBlack2, MainColor } from '../../assets/colors';
+import { StyleSheet, Text, View, TouchableOpacity, StatusBar, TouchableHighlight } from 'react-native';
+import { bgWhite, borderBlack2, fontBlack, fontBlack2, MainColor, borderBlack } from '../../assets/colors';
 import { sizeHeight, sizeFont } from '../../assets/responsive';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
@@ -9,10 +9,15 @@ export default function HeaderPagesWhite({ navigation, title }) {
     return (
         <View style={styles.Container}>
             <StatusBar translucent={false} backgroundColor={MainColor} barStyle="light-content" />
-            <TouchableOpacity activeOpacity={0.6} onPress={() => navigation.goBack()}>
+            <TouchableHighlight
+                style={{ padding: 10, borderRadius: 20 }}
+                activeOpacity={0.6}
+                underlayColor="#DDDDDD"
+                onPress={() => navigation.goBack()}
+            >
                 <FontAwesome5 name={'chevron-left'} brand size={sizeFont(4)} color={fontBlack2} />
-            </TouchableOpacity>
-            <Text style={{ marginLeft: 20, fontSize: sizeFont(4), color: fontBlack }}>{title}</Text>
+            </TouchableHighlight>
+            <Text style={{ marginLeft: 10, fontSize: sizeFont(4), color: fontBlack }}>{title}</Text>
         </View>
     );
 }
