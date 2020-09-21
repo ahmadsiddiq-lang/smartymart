@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { bgWhite } from '../assets/colors';
 import Header from '../components/Headers/HeaderPages';
 import Category from '../components/HistoryTransaksi/Category';
