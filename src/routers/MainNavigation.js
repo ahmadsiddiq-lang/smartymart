@@ -11,6 +11,7 @@ import Daftar from '../pages/Daftar';
 import Verifikasi from '../pages/Verifikasi';
 import Search from '../pages/Search';
 import ListPromo from '../pages/ListPromo';
+import HistoryTransaksi from '../pages/HistoryTransaksi';
 
 const Stack = createStackNavigator();
 
@@ -18,7 +19,7 @@ function MainNavigation() {
     return (
         <NavigationContainer>
             <StatusBar backgroundColor={MainColor} />
-            <Stack.Navigator initialRouteName="ListPromo" headerMode="none">
+            <Stack.Navigator initialRouteName="HistoryTransaksi" headerMode="none">
                 <Stack.Screen name="Home" component={Home} />
                 <Stack.Screen name="Product" component={Product} />
                 <Stack.Screen name="Login" component={Login} />
@@ -26,6 +27,7 @@ function MainNavigation() {
                 <Stack.Screen name="Verifikasi" component={Verifikasi} />
                 <Stack.Screen name="Search" component={Search} />
                 <Stack.Screen name="ListPromo" component={ListPromo} />
+                <Stack.Screen name="HistoryTransaksi" component={HistoryTransaksi} />
             </Stack.Navigator>
         </NavigationContainer>
     );
