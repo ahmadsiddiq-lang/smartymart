@@ -89,6 +89,7 @@ const styles = StyleSheet.create({
         marginTop: 20,
         padding: 15,
         borderRadius: 8,
+        marginBottom: 10,
     },
     BoxInput: {
         flexDirection: 'row',
@@ -114,7 +115,7 @@ const styles = StyleSheet.create({
     },
     Content: {
         overflow: 'hidden',
-        paddingVertical: 10,
+        paddingVertical: 5,
         flex: 1,
     },
     BoxList: {
