@@ -10,6 +10,7 @@ module.exports = {
     fontBlack1: '#858585',
     fontBlack2: '#c2c2c2',
     fontBlack3: '#e3e3e3',
+    borderWhite: 'white',
     borderBlack: 'black',
     borderBlack2: '#c2c2c2',
     borderBlack3: '#e3e3e3',
