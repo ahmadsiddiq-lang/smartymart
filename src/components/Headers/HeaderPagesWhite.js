@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, StatusBar, TouchableHighlight } from 'react-native';
-import { bgWhite, borderBlack2, fontBlack, fontBlack2, MainColor, borderBlack } from '../../assets/colors';
+import { StyleSheet, Text, View, StatusBar, TouchableHighlight } from 'react-native';
+import { bgWhite, borderBlack2, fontBlack, fontBlack2, MainColor } from '../../assets/colors';
 import { sizeHeight, sizeFont } from '../../assets/responsive';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 

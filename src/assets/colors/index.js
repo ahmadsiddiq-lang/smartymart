@@ -1,6 +1,7 @@
 module.exports = {
     MainColor: '#F65257',
     bgWhite: 'white',
+    bgWhiteRGBA: 'rgba(255, 255, 255, 0.3)',
     gbBlack: 'black',
     fontWhite: 'white',
     fontBlack: 'black',

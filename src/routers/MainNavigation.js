@@ -15,7 +15,7 @@ function MainNavigation() {
     return (
         <NavigationContainer>
             <StatusBar backgroundColor={MainColor} />
-            <Stack.Navigator initialRouteName="Login" headerMode="none">
+            <Stack.Navigator initialRouteName="Home" headerMode="none">
                 <Stack.Screen name="Home" component={Home} />
                 <Stack.Screen name="Login" component={Login} />
                 <Stack.Screen name="Daftar" component={Daftar} />

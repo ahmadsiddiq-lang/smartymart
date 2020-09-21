@@ -2,20 +2,18 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, Keyboard } from 'react-native';
-import { bgWhite, borderBlack2, fontWhite, MainColor } from '../assets/colors';
+import { bgWhite, fontWhite, MainColor } from '../assets/colors';
 import { sizeFont, sizeHeight, sizeWidth } from '../assets/responsive';
 import Header from '../components/Headers/HeaderPagesWhite';
 
 export default function Verifikasi({ navigation }) {
-    const [indexOf, setIndex] = useState(null);
-    const [text, setText] = useState('');
+    // const [indexOf, setIndex] = useState(null);
 
     const inputRefs = Array(4).fill(React.createRef());
 
     const goNextAfterEdit = (e, index) => {
         // console.log(e);
         if (e > 0) {
-            setText(e);
             if (index < inputRefs.length - 1) {
                 inputRefs[index + 1].focus();
             }
@@ -24,6 +22,25 @@ export default function Verifikasi({ navigation }) {
         //     inputRefs[index - 1].focus();
         // }
     };
+
+    // var counter = 2 * 60;
+    // const handleTimer = setInterval(() => {
+    //     // const data  = {
+    //     //     menit: counter > counter / 2 ? `0${Math.ceil(counter / 1000 * 60)}` :
+    //     // }
+    //     if (counter > 0) {
+    //         let menit = Math.ceil((counter % (1000 * 60)) / 1000);
+    //         let secon = Math.ceil((counter % (1000 * 60)) / 2);
+    //         const dateTime = {
+    //             a: menit,
+    //             b: secon,
+    //         };
+    //         console.log(dateTime);
+    //         counter -= 1;
+    //     } else {
+    //         clearInterval(handleTimer);
+    //     }
+    // }, 1000);
     return (
         <TouchableOpacity activeOpacity={1} onPress={() => Keyboard.dismiss()} style={styles.Container}>
             <Header navigation={navigation} title={'Verifikasi'} />
@@ -40,7 +57,7 @@ export default function Verifikasi({ navigation }) {
                                         ref={r => inputRefs[index] = r}
                                         maxLength={1}
                                         keyboardType="numeric"
-                                        onFocus={() => setIndex(index)}
+                                        // onFocus={() => setIndex(index)}
                                         selectionColor={MainColor}
                                         style={styles.TextInput} />
                                 );

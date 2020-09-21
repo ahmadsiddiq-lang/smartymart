@@ -1,11 +1,12 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { MainColor } from '../assets/colors';
+import Header from '../components/Headers/HeaderHome';
 
 export default function Home({ Navigation }) {
     return (
         <View style={styles.Container}>
-            <Text>Home</Text>
+            <Header Navigation={Navigation} />
         </View>
     );
 }
@@ -13,6 +14,5 @@ export default function Home({ Navigation }) {
 const styles = StyleSheet.create({
     Container: {
         flex: 1,
-        backgroundColor: MainColor,
     },
 });
