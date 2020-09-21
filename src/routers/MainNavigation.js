@@ -10,6 +10,7 @@ import Login from '../pages/Login';
 import Daftar from '../pages/Daftar';
 import Verifikasi from '../pages/Verifikasi';
 import Search from '../pages/Search';
+import ListPromo from '../pages/ListPromo';
 
 const Stack = createStackNavigator();
 
@@ -17,13 +18,14 @@ function MainNavigation() {
     return (
         <NavigationContainer>
             <StatusBar backgroundColor={MainColor} />
-            <Stack.Navigator initialRouteName="Product" headerMode="none">
+            <Stack.Navigator initialRouteName="ListPromo" headerMode="none">
                 <Stack.Screen name="Home" component={Home} />
                 <Stack.Screen name="Product" component={Product} />
                 <Stack.Screen name="Login" component={Login} />
                 <Stack.Screen name="Daftar" component={Daftar} />
                 <Stack.Screen name="Verifikasi" component={Verifikasi} />
                 <Stack.Screen name="Search" component={Search} />
+                <Stack.Screen name="ListPromo" component={ListPromo} />
             </Stack.Navigator>
         </NavigationContainer>
     );
