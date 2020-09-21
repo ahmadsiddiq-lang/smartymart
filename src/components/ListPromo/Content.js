@@ -30,7 +30,7 @@ export default function Content({ navigation }) {
             <View style={styles.Head}>
                 <Text style={{ color: fontBlack, fontSize: sizeFont(3.3) }}>Punya kode promo ?</Text>
                 <View style={styles.BoxInput}>
-                    <TextInput placeholder="Ketik kode promo" onChangeText={(e) => setText(e)} selectionColor={MainColor} style={styles.Input} />
+                    <TextInput value={inputText} placeholder="Ketik kode promo" onChangeText={(e) => setText(e)} selectionColor={MainColor} style={styles.Input} />
                     <TouchableOpacity activeOpacity={0.6} onPress={() => handlePromo()} style={styles.Btn}>
                         <Text style={{ color: fontWhite, fontSize: sizeFont(3.3) }}>Gunakan</Text>
                     </TouchableOpacity>
@@ -40,9 +40,9 @@ export default function Content({ navigation }) {
                 <View style={styles.Content}>
                     {
 
-                        [1, 2, 3, 4, 5].map((_, index) => {
+                        ['KJASD86', '28KSJD', '89KJ7AS', '2364JKS', '893KHSD'].map((item, index) => {
                             return (
-                                <View key={index} style={styles.BoxList}>
+                                <TouchableOpacity onPress={() => setText(item)} key={index} style={styles.BoxList}>
                                     <Image style={styles.Image} source={require('../../assets/images/Promo/Promo.png')} />
                                     <View style={styles.BoxCircle}>
                                         <View style={[styles.CircleWhite, styles.Left]} />
@@ -66,7 +66,7 @@ export default function Content({ navigation }) {
                                             </View>
                                         </View>
                                     </View>
-                                </View>
+                                </TouchableOpacity>
                             );
                         })
 
@@ -103,6 +103,7 @@ const styles = StyleSheet.create({
         width: '70%',
         fontSize: sizeFont(3.3),
         letterSpacing: 0.5,
+        color: fontBlack,
     },
     Btn: {
         backgroundColor: MainColor,
