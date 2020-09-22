@@ -6,7 +6,7 @@ import { bgBlack1, bgBlack2, borderBlack3, fontBlack1, fontWhite, MainColor } fr
 import { sizeFont, sizeWidth } from '../../assets/responsive';
 import { Poppins } from '../../assets/fonts/Poppins';
 
-export default function Content() {
+export default function Content({ navigation }) {
     return (
         <View style={styles.Container}>
             <View style={styles.Box}>
