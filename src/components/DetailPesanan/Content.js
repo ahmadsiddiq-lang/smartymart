@@ -1,10 +1,14 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { bgBlack1, bgBlack2, borderBlack3, fontBlack1, fontWhite, MainColor } from '../../assets/colors';
-import { sizeFont, sizeWidth } from '../../assets/responsive';
+import { sizeFont, sizeWidth, sizeHeight } from '../../assets/responsive';
 import { Poppins } from '../../assets/fonts/Poppins';
+import RBSheet from 'react-native-raw-bottom-sheet';
+import Kurir from '../DetailPesanan/Kurir';
+import Pembayaran from '../DetailPesanan/Pembayaran';
+
 
 const product = [
     { title: 'Beras Setra Ramos Cap Topi Kaki', image: require('../../assets/images/Product/Produk3.png') },
@@ -15,21 +19,20 @@ const product = [
 ];
 
 export default function Content({ navigation }) {
-
+    const refRBSheet = useRef();
     const [dataProduct, setData] = useState([]);
     const [active, setActive] = useState(true);
+    const [indexPage, setIndexPage] = useState(0);
 
-    const handleTrue = () => {
-        setActive(e => !e);
-        if (active) {
-            hanldeProduct();
-        }
-    };
 
     const hanldeProduct = () => {
         const newProduct = product.slice(0, 2);
         setData(newProduct);
-        console.log(newProduct.length);
+    };
+
+    const handleSheet = (index) => {
+        setIndexPage(index);
+        refRBSheet.current.open();
     };
 
     useEffect(() => {
@@ -120,8 +123,24 @@ export default function Content({ navigation }) {
             <View style={styles.Line} />
             <View style={styles.Box}>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                    <Text style={{ fontSize: sizeFont(3.5), fontFamily: Poppins.Medium, marginBottom: 5 }}>Pesanan</Text>
-                    <TouchableOpacity activeOpacity={0.6} style={{ paddingHorizontal: 10 }}>
+                    <Text style={{ fontSize: sizeFont(3.5), fontFamily: Poppins.Medium, marginBottom: 5 }}>Kurir</Text>
+                    <TouchableOpacity onPress={() => handleSheet(0)} activeOpacity={0.6} style={{ paddingHorizontal: 10 }}>
+                        <Text style={{ color: MainColor }}>Ubah</Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <Image style={{ resizeMode: 'contain', height: sizeWidth(8), width: sizeWidth(12) }} source={require('../../assets/images/Kurir/Grab.png')} />
+                    <View style={{ marginLeft: 15 }}>
+                        <Text style={{ fontSize: sizeFont(3.3), fontFamily: Poppins.Medium }}>Grab Same Day (3-6 Jam)</Text>
+                        <Text style={{ fontSize: sizeFont(3.3), fontFamily: Poppins.Medium }}>Rp. 20.000</Text>
+                    </View>
+                </View>
+            </View>
+            <View style={styles.Line} />
+            <View style={styles.Box}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                    <Text style={{ fontSize: sizeFont(3.5), fontFamily: Poppins.Medium, marginBottom: 5 }}>Pembayaran</Text>
+                    <TouchableOpacity onPress={() => handleSheet(1)} activeOpacity={0.6} style={{ paddingHorizontal: 10 }}>
                         <Text style={{ color: MainColor }}>Ubah</Text>
                     </TouchableOpacity>
                 </View>
@@ -156,9 +175,40 @@ export default function Content({ navigation }) {
                     <Text style={{ color: fontWhite, fontSize: sizeFont(3.5) }}>Bayar</Text>
                 </TouchableOpacity>
             </View>
+            <RBSheet
+                ref={refRBSheet}
+                closeOnDragDown={true}
+                closeOnPressMask={true}
+                height={sizeHeight(70)}
+                customStyles={{
+                    wrapper: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                    },
+                    container: {
+                        borderTopLeftRadius: 15,
+                        borderTopRightRadius: 15,
+                    },
+                }}
+            >
+                <Component indexPage={indexPage} />
+            </RBSheet>
         </View>
     );
 }
+
+const data = [
+    <Kurir />,
+    <Pembayaran />,
+];
+const Component = ({ indexPage }) => {
+    return (
+        <View>
+            {
+                data[indexPage]
+            }
+        </View>
+    );
+};
 
 const styles = StyleSheet.create({
     Container: {

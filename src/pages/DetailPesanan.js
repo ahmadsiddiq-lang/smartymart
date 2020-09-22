@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { StyleSheet, Text, View, Switch, ScrollView, TouchableOpacity } from 'react-native';
 import Header from '../components/Headers/HeaderPages';
 import { bgBlack2, bgWhite, fontBlack1, MainColor, MainColor2 } from '../assets/colors';
@@ -13,10 +13,10 @@ const Address = [
     { title: 'Jhone Doe', Address: 'The Mansion Bougenville, Jl. Trembesi Blok D4, Bandar Baru, Kompleks Kemayoran RW 10, Pademangan Timur, 14410. Jakarta Utara' },
 ];
 
-
 export default function DetailPesanan({ navigation }) {
     const [isEnabled, setIsEnabled] = useState(false);
     const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+
     return (
         <View style={styles.Container}>
             <Header navigation={navigation} title={'Detail Pesanan'} />
@@ -59,7 +59,7 @@ export default function DetailPesanan({ navigation }) {
                     </View>
                 }
                 <View style={styles.Line} />
-                <Content isEnabled={isEnabled} navigation={navigation} />
+                <Content navigation={navigation} />
             </ScrollView>
         </View>
     );
