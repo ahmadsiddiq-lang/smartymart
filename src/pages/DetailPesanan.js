@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View, Switch, ScrollView, TouchableOpacity } from 'react-native';
 import Header from '../components/Headers/HeaderPages';
 import { bgBlack2, bgWhite, fontBlack1, MainColor, MainColor2 } from '../assets/colors';
