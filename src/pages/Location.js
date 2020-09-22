@@ -2,7 +2,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
 import { SCREEN_WIDTH, sizeHeight } from '../assets/responsive';
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import '@react-native-community/geolocation';
 navigator.geolocation = require('@react-native-community/geolocation');
 import Header from '../components/Headers/HeaderLocation';
@@ -12,7 +12,7 @@ import { Poppins } from '../assets/fonts/Poppins';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 
-export default function Location() {
+export default function Location({ navigation }) {
     const mapView = useRef(null);
     const [curentPosition, setCurentPosition] = useState(null);
     const [poSitionTarget, setpoSitionTarget] = useState(null);
@@ -39,6 +39,24 @@ export default function Location() {
         );
     };
 
+    const handlePosition = (data, geometry) => {
+        const { location: { lat: latitude, lng: longitude } } = geometry;
+        mapView.current.animateToRegion({
+            latitude,
+            longitude,
+            latitudeDelta: 0,
+            longitudeDelta: 0.05,
+        });
+        setpoSitionTarget({
+            latitude,
+            longitude,
+            latitudeDelta: 0,
+            longitudeDelta: 0.05,
+            // title: data.structured_formatting.main_text,
+        });
+        //   console.log(curentPosition);
+    };
+
     useEffect(() => {
         getCoordinate();
         return () => {
@@ -47,7 +65,7 @@ export default function Location() {
     }, []);
     return (
         <View style={styles.container}>
-            <Header />
+            <Header setpoSitionTarget={setpoSitionTarget} handlePosition={handlePosition} navigation={navigation} />
             <MapView
                 provider={PROVIDER_GOOGLE} // remove if not using Google Maps
                 style={styles.map}
@@ -58,7 +76,11 @@ export default function Location() {
                 loadingEnabled={true}
                 showsCompass={false}
 
-            />
+            >
+                {
+                    poSitionTarget && (<Marker coordinate={poSitionTarget} />)
+                }
+            </MapView>
             <View style={styles.Content}>
                 <Text style={{ fontSize: sizeFont(3.5), fontFamily: Poppins.Medium }}>Lokasi Pada Peta</Text>
                 <Text style={{ fontSize: sizeFont(3.3), color: fontBlack1 }}>Geser titik di peta atau cari alamat terdekat</Text>
