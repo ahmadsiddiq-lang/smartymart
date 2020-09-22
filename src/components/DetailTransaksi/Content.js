@@ -177,7 +177,6 @@ export default function Content() {
 const styles = StyleSheet.create({
     Container: {
         flex: 1,
-        paddingBottom: 5,
     },
     Box: {
         paddingHorizontal: 20,
@@ -221,6 +220,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         padding: 8,
         borderRadius: 8,
-        marginVertical: 20,
+        marginVertical: 10,
     },
 });
