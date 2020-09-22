@@ -58,8 +58,8 @@ export default class HeaderLocation extends Component {
                                 // position: 'absolute',
                                 // top: 0,
                                 // zIndex: 1,
-                                borderBottomWidth: 1,
-                                borderBottomColor: borderBlack2,
+                                // borderBottomWidth: 1,
+                                // borderBottomColor: borderBlack2,
                             },
                             textInputContainer: {
                                 flex: 1,
@@ -117,8 +117,8 @@ const styles = StyleSheet.create({
         top: 0,
         zIndex: 1,
         width: SCREEN_WIDTH,
-        // borderBottomWidth: 1,
-        // borderBottomColor: borderBlack2,
+        borderBottomWidth: 1,
+        borderBottomColor: borderBlack2,
         // paddingHorizontal: 20,
     },
     Box: {
