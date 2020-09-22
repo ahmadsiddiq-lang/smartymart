@@ -1,11 +1,11 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView } from 'react-native';
-import { borderBlack3, fontBlack, fontBlack1, MainColor, bgBlack2 } from '../../assets/colors';
-import { sizeFont, sizeWidth } from '../../assets/responsive';
+import { borderBlack3, fontBlack, fontBlack1, MainColor, bgBlack2, fontWhite } from '../../assets/colors';
+import { sizeFont, sizeWidth, SCREEN_WIDTH } from '../../assets/responsive';
 import { Poppins } from '../../assets/fonts/Poppins';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-
+import Dash from 'react-native-dash';
 
 
 const product = [
@@ -133,7 +133,7 @@ export default function Content() {
                         </View>
                         <View style={styles.ListPengiriman}>
                             <View style={{ flex: 2 }}>
-                                <Text style={{ fontSize: sizeFont(3.3), color: fontBlack1 }}>Alamat</Text>
+                                <Text style={{ fontSize: sizeFont(3.3), color: fontBlack1 }}>Alamat Pengiriman</Text>
                             </View>
                             <View style={{ flex: 2 }}>
                                 <Text style={{ fontSize: sizeFont(3.3) }} numberOfLines={3}>Toko ABC(08128747947) The Mansion Bougenville, Jl. Trembesi Blok D4, Bandar Baru, Kompleks Kemayoran RW 10, Pademangan Timur, 14410. Jakarta Utara</Text>
@@ -160,6 +160,14 @@ export default function Content() {
                         <Text style={{ fontSize: sizeFont(3.3), color: fontBlack1 }}>Ongkos Kirim</Text>
                         <Text style={{ fontSize: sizeFont(3.5), color: fontBlack }}>Rp. 20.000</Text>
                     </View>
+                    <Dash dashThickness={1} dashLength={10} dashGap={5} dashColor={borderBlack3} style={{ width: SCREEN_WIDTH - 20, height: 0.1, marginVertical: 10, marginLeft: 2 }} />
+                    <View style={styles.BoxLIstPembayaran}>
+                        <Text style={{ fontSize: sizeFont(3.3), color: fontBlack }}>Total Bayar Kirim</Text>
+                        <Text style={{ fontSize: sizeFont(3.5), color: fontBlack }}>Rp. 420.000</Text>
+                    </View>
+                    <TouchableOpacity onPress={() => hanldeProduct()} activeOpacity={0.6} style={styles.Btn}>
+                        <Text style={{ color: fontWhite, fontSize: sizeFont(3.5) }}>Selesai</Text>
+                    </TouchableOpacity>
                 </View>
             </ScrollView>
         </View>
@@ -207,5 +215,12 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         paddingVertical: 5,
 
+    },
+    Btn: {
+        backgroundColor: MainColor,
+        alignItems: 'center',
+        padding: 8,
+        borderRadius: 8,
+        marginVertical: 20,
     },
 });
