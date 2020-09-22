@@ -6,7 +6,7 @@ import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import '@react-native-community/geolocation';
 navigator.geolocation = require('@react-native-community/geolocation');
 import Header from '../components/Headers/HeaderLocation';
-import { bgWhite, MainColor, borderBlack2, fontBlack2, fontBlack1, fontWhite } from '../assets/colors';
+import { bgWhite, MainColor, borderBlack2, fontBlack1, fontWhite } from '../assets/colors';
 import { sizeFont } from '../assets/responsive';
 import { Poppins } from '../assets/fonts/Poppins';
 import Ionicons from 'react-native-vector-icons/Ionicons';
