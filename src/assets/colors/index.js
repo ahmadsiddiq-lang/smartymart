@@ -4,6 +4,7 @@ module.exports = {
     MainColor2: '#ff878b',
     bgWhite: 'white',
     bgWhiteRGBA: 'rgba(255, 255, 255, 0.3)',
+    bgWhiteRGBA1: 'rgba(255, 255, 255, 0.7)',
     bgBlack: 'black',
     bgBlack1: '#c2c2c2',
     bgBlack2: '#ebebeb',
