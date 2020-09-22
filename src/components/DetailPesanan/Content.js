@@ -1,12 +1,44 @@
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { bgBlack1, bgBlack2, borderBlack3, fontBlack1, fontWhite, MainColor } from '../../assets/colors';
 import { sizeFont, sizeWidth } from '../../assets/responsive';
 import { Poppins } from '../../assets/fonts/Poppins';
 
+const product = [
+    { title: 'Beras Setra Ramos Cap Topi Kaki', image: require('../../assets/images/Product/Produk3.png') },
+    { title: 'Minyak Goreng Tropical', image: require('../../assets/images/Product/Produk1.png') },
+    { title: 'Beras Setra Ramos Cap Topi Kaki', image: require('../../assets/images/Product/Produk2.png') },
+    { title: 'Beras Setra Ramos Cap Topi Kaki', image: require('../../assets/images/Product/Produk4.png') },
+    { title: 'Beras Setra Ramos Cap Topi Kaki', image: require('../../assets/images/Product/Produk5.png') },
+];
+
 export default function Content({ navigation }) {
+
+    const [dataProduct, setData] = useState([]);
+    const [active, setActive] = useState(true);
+
+    const handleTrue = () => {
+        setActive(e => !e);
+        if (active) {
+            hanldeProduct();
+        }
+    };
+
+    const hanldeProduct = () => {
+        const newProduct = product.slice(0, 2);
+        setData(newProduct);
+        console.log(newProduct.length);
+    };
+
+    useEffect(() => {
+        hanldeProduct();
+        return () => {
+            setData([]);
+        };
+    }, []);
+
     return (
         <View style={styles.Container}>
             <View style={styles.Box}>
@@ -34,34 +66,55 @@ export default function Content({ navigation }) {
             <View style={styles.Line} />
             <View style={styles.Box}>
                 <Text style={{ fontSize: sizeFont(3.5), fontFamily: Poppins.Medium, marginBottom: 5 }}>Pesanan</Text>
-                <View style={styles.ListProduct}>
-                    <Image style={styles.Image} source={require('../../assets/images/Product/Produk3.png')} />
-                    <View style={{ marginLeft: 15 }}>
-                        <Text style={{ fontSize: sizeFont(3.3) }}>Beras Setra Ramos Cap Topi Kaki</Text>
-                        <Text style={{ fontSize: sizeFont(3.3) }}>Rp. 65.000</Text>
-                        <Text style={{ fontSize: sizeFont(3), color: fontBlack1 }}>Qty x1</Text>
-                    </View>
-                </View>
-                <View style={styles.ListProduct}>
-                    <Image style={styles.Image} source={require('../../assets/images/Product/Produk1.png')} />
-                    <View style={{ marginLeft: 15 }}>
-                        <Text style={{ fontSize: sizeFont(3.3) }}>Minyak Goreng Tropical</Text>
-                        <Text style={{ fontSize: sizeFont(3.3) }}>Rp. 65.000</Text>
-                        <Text style={{ fontSize: sizeFont(3), color: fontBlack1 }}>Qty x1</Text>
-                    </View>
-                </View>
+                {
+                    active ? dataProduct.map((item, index) => {
+                        return (
+                            <View key={index} style={styles.ListProduct}>
+                                <Image style={styles.Image} source={item.image} />
+                                <View style={{ marginLeft: 15 }}>
+                                    <Text style={{ fontSize: sizeFont(3.3) }}>{item.title}</Text>
+                                    <Text style={{ fontSize: sizeFont(3.3) }}>Rp. 65.000</Text>
+                                    <Text style={{ fontSize: sizeFont(3), color: fontBlack1 }}>Qty x1</Text>
+                                </View>
+                            </View>
+                        );
+                    }) :
+                        product.map((item, index) => {
+                            return (
+                                <View key={index} style={styles.ListProduct}>
+                                    <Image style={styles.Image} source={item.image} />
+                                    <View style={{ marginLeft: 15 }}>
+                                        <Text style={{ fontSize: sizeFont(3.3) }}>{item.title}</Text>
+                                        <Text style={{ fontSize: sizeFont(3.3) }}>Rp. 65.000</Text>
+                                        <Text style={{ fontSize: sizeFont(3), color: fontBlack1 }}>Qty x1</Text>
+                                    </View>
+                                </View>
+                            );
+                        })
+                }
                 <View style={{
                     marginTop: 10,
                     alignItems: 'center',
                 }}>
-                    <TouchableOpacity activeOpacity={0.6} style={{
-                        flexDirection: 'row',
-                        padding: 5,
-                        paddingHorizontal: 10,
-                    }}>
-                        <Text style={{ color: MainColor, marginRight: 20, fontSize: sizeFont(3.3) }}>+3 Product Lainnya</Text>
-                        <Ionicons name="caret-down" size={sizeFont(5)} color={MainColor} />
-                    </TouchableOpacity>
+                    {
+                        active ?
+                            <TouchableOpacity onPress={() => setActive(e => !e)} activeOpacity={0.6} style={{
+                                flexDirection: 'row',
+                                padding: 5,
+                                paddingHorizontal: 10,
+                            }}>
+                                <Text style={{ color: MainColor, marginRight: 20, fontSize: sizeFont(3.3) }}>+{product.length - 2} Product Lainnya</Text>
+                                <Ionicons name="caret-down" size={sizeFont(5)} color={MainColor} />
+                            </TouchableOpacity> :
+                            <TouchableOpacity onPress={() => setActive(e => !e)} activeOpacity={0.6} style={{
+                                flexDirection: 'row',
+                                padding: 5,
+                                paddingHorizontal: 10,
+                            }}>
+                                <Text style={{ color: MainColor, marginRight: 20, fontSize: sizeFont(3.3) }}>+{product.length - 2} Product Lainnya</Text>
+                                <Ionicons name="caret-up" size={sizeFont(5)} color={MainColor} />
+                            </TouchableOpacity>
+                    }
                 </View>
             </View>
             <View style={styles.Line} />
@@ -99,7 +152,7 @@ export default function Content({ navigation }) {
                     <Text style={{ fontSize: sizeFont(3.5), marginBottom: 5 }}>Total Bayar</Text>
                     <Text style={{ fontSize: sizeFont(3.5) }}>Rp. 400.000</Text>
                 </View>
-                <TouchableOpacity activeOpacity={0.6} style={styles.BtnBayar}>
+                <TouchableOpacity onPress={() => hanldeProduct()} activeOpacity={0.6} style={styles.BtnBayar}>
                     <Text style={{ color: fontWhite, fontSize: sizeFont(3.5) }}>Bayar</Text>
                 </TouchableOpacity>
             </View>
