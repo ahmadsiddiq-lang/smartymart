@@ -6,8 +6,9 @@ import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import '@react-native-community/geolocation';
 navigator.geolocation = require('@react-native-community/geolocation');
 import Header from '../components/Headers/HeaderLocation';
-import { bgWhite, MainColor, borderBlack2 } from '../assets/colors';
+import { bgWhite, MainColor, borderBlack2, fontBlack2, fontBlack1, fontWhite } from '../assets/colors';
 import { sizeFont } from '../assets/responsive';
+import { Poppins } from '../assets/fonts/Poppins';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 
@@ -59,18 +60,18 @@ export default function Location() {
 
             />
             <View style={styles.Content}>
-                <Text>Lokasi Pada Peta</Text>
-                <Text>Geser titik di peta atau cari alamat terdekat</Text>
+                <Text style={{ fontSize: sizeFont(3.5), fontFamily: Poppins.Medium }}>Lokasi Pada Peta</Text>
+                <Text style={{ fontSize: sizeFont(3.3), color: fontBlack1 }}>Geser titik di peta atau cari alamat terdekat</Text>
                 <View style={styles.BoxAddress}>
                     <Ionicons name="location" size={sizeFont(8)} color={MainColor} />
                     <Text style={{ fontSize: sizeFont(3.3), marginLeft: 10 }}>The Mansion Bougenville, Jl. Trembesi Blok D4, Bandar Baru, Kompleks Kemayoran RW 10, Pademangan Timur, 14410. Jakarta Utara</Text>
                 </View>
                 <View style={styles.BoxDetail}>
-                    <Text>Detail Alamat</Text>
+                    <Text style={{ fontSize: sizeFont(3.3) }}>Detail Alamat</Text>
                     <TextInput placeholder="Masukkan detail alamat" />
                 </View>
                 <TouchableOpacity activeOpacity={0.6} style={styles.Btn}>
-                    <Text>Simpan</Text>
+                    <Text style={{ fontSize: sizeFont(3.5), color: fontWhite }}>Simpan</Text>
                 </TouchableOpacity>
             </View>
         </View>
