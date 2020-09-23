@@ -16,6 +16,7 @@ import Keranjang from '../pages/Keranjang';
 import DetailPesanan from '../pages/DetailPesanan';
 import DetailTransaksi from '../pages/DetailTransaksi';
 import Location from '../pages/Location';
+import WarungTerdekat from '../pages/WarungTerdekat';
 
 const Stack = createStackNavigator();
 
@@ -23,7 +24,7 @@ function MainNavigation() {
     return (
         <NavigationContainer>
             <StatusBar backgroundColor={MainColor} />
-            <Stack.Navigator initialRouteName="Location" headerMode="none">
+            <Stack.Navigator initialRouteName="Home" headerMode="none">
                 <Stack.Screen name="Home" component={Home} />
                 <Stack.Screen name="Product" component={Product} />
                 <Stack.Screen name="Login" component={Login} />
@@ -36,6 +37,7 @@ function MainNavigation() {
                 <Stack.Screen name="DetailPesanan" component={DetailPesanan} />
                 <Stack.Screen name="DetailTransaksi" component={DetailTransaksi} />
                 <Stack.Screen name="Location" component={Location} />
+                <Stack.Screen name="WarungTerdekat" component={WarungTerdekat} />
             </Stack.Navigator>
         </NavigationContainer>
     );
