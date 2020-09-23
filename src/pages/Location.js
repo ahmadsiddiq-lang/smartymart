@@ -3,7 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, Image, ScrollView } from 'react-native';
 import { SCREEN_HEIGHT, SCREEN_WIDTH, sizeHeight } from '../assets/responsive';
-import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import '@react-native-community/geolocation';
 navigator.geolocation = require('@react-native-community/geolocation');
 import Header from '../components/Headers/HeaderLocation';
@@ -18,7 +18,7 @@ export default function Location({ navigation }) {
     const refRBSheet = useRef();
     const mapView = useRef(null);
     const [curentPosition, setCurentPosition] = useState(null);
-    const [poSitionTarget, setpoSitionTarget] = useState(null);
+    // const [poSitionTarget, setpoSitionTarget] = useState(null);
     const [address, setAddress] = useState('');
     const [addressDetail, setAddressDetail] = useState('');
     const getCoordinate = () => {
@@ -45,13 +45,13 @@ export default function Location({ navigation }) {
             latitudeDelta: 0,
             longitudeDelta: 0.05,
         });
-        setpoSitionTarget({
-            latitude,
-            longitude,
-            latitudeDelta: 0,
-            longitudeDelta: 0.05,
-            // title: data.structured_formatting.main_text,
-        });
+        // setpoSitionTarget({
+        //     latitude,
+        //     longitude,
+        //     latitudeDelta: 0,
+        //     longitudeDelta: 0.05,
+        //     // title: data.structured_formatting.main_text,
+        // });
         // handleLatLong(latitude, longitude);
         setAddress(data.description);
     };
@@ -61,15 +61,17 @@ export default function Location({ navigation }) {
     };
 
     const handleOnchangeRegion = region => {
-        const { latitude, longitude } = region;
-        Geocoder.init('AIzaSyB6lpShDkjUcV-ukqGAQPPozr-T8H1F7Nk');
-        Geocoder.from(latitude, longitude)
-            .then(json => {
-                var addressComponent = json.results[0].formatted_address;
-                setAddress(addressComponent);
-                // console.log(addressComponent);
-            })
-            .catch(error => console.warn(error));
+        if (region) {
+            const { latitude, longitude } = region;
+            Geocoder.init('AIzaSyB6lpShDkjUcV-ukqGAQPPozr-T8H1F7Nk');
+            Geocoder.from(latitude, longitude)
+                .then(json => {
+                    var addressComponent = json.results[0].formatted_address;
+                    setAddress(addressComponent);
+                    // console.log(addressComponent);
+                })
+                .catch(error => console.warn(error));
+        }
     };
 
     useEffect(() => {
@@ -80,10 +82,10 @@ export default function Location({ navigation }) {
     }, []);
     return (
         <View style={styles.container}>
-            <Header setpoSitionTarget={setpoSitionTarget} handlePosition={handlePosition} navigation={navigation} />
+            <Header handlePosition={handlePosition} navigation={navigation} />
             <MapView
                 // scrollEnabled={false}
-                minZoomLevel={17}
+                minZoomLevel={15}
                 provider={PROVIDER_GOOGLE} // remove if not using Google Maps
                 style={styles.map}
                 initialRegion={curentPosition}
