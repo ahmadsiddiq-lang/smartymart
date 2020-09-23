@@ -99,8 +99,8 @@ export default function Location({ navigation }) {
             <View style={{
                 // marginTop: sizeWidth(15),
                 position: 'absolute',
-                left: SCREEN_WIDTH / 2 - 25,
-                top: SCREEN_HEIGHT / 4 - 35,
+                left: sizeWidth(50) - 19,
+                top: sizeHeight(20.6),
             }}>
                 <Image style={{
                     resizeMode: 'contain',
