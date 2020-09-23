@@ -55,6 +55,7 @@ export default class HeaderLocation extends Component {
                             padding: 10,
                             paddingVertical: 10,
                             position: 'absolute',
+                            top: 0,
                             right: 0,
                         }}
                         onPress={() => {

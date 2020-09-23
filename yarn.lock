@@ -5742,6 +5742,11 @@ react-native-dash@^0.0.11:
     prop-types "^15.5.10"
     react-native-measureme "0.0.2"
 
+react-native-geocoding@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/react-native-geocoding/-/react-native-geocoding-0.4.0.tgz#e22c97500bfccc25273499ab3af87c27ac6ede8f"
+  integrity sha512-iXIqdLHDGVyhWLJyWGRFRdvQa3hDQoCX4MLwKA9zja3gQxZ91v51CLGrbvxCckOGzoxu2/WA6e8TM74rrPxlsA==
+
 react-native-gesture-handler@^1.8.0:
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/react-native-gesture-handler/-/react-native-gesture-handler-1.8.0.tgz#18f61f51da50320f938957b0ee79bc58f47449dc"

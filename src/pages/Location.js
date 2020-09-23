@@ -1,3 +1,4 @@
+// import Ionicons from 'react-native-vector-icons/Ionicons';
 /* eslint-disable react-native/no-inline-styles */
 import React, { useState, useRef, useEffect } from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, Image, ScrollView } from 'react-native';
@@ -10,7 +11,7 @@ import { bgWhite, MainColor, borderBlack2, fontBlack1, fontWhite, fontBlack2, fo
 import { sizeFont, sizeWidth } from '../assets/responsive';
 import { Poppins } from '../assets/fonts/Poppins';
 import RBSheet from 'react-native-raw-bottom-sheet';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import Geocoder from 'react-native-geocoding';
 
 
 export default function Location({ navigation }) {
@@ -51,6 +52,7 @@ export default function Location({ navigation }) {
             longitudeDelta: 0.05,
             // title: data.structured_formatting.main_text,
         });
+        // handleLatLong(latitude, longitude);
         setAddress(data.description);
     };
 
@@ -59,7 +61,15 @@ export default function Location({ navigation }) {
     };
 
     const handleOnchangeRegion = region => {
-        console.log(region);
+        const { latitude, longitude } = region;
+        Geocoder.init('AIzaSyB6lpShDkjUcV-ukqGAQPPozr-T8H1F7Nk');
+        Geocoder.from(latitude, longitude)
+            .then(json => {
+                var addressComponent = json.results[0].formatted_address;
+                setAddress(addressComponent);
+                // console.log(addressComponent);
+            })
+            .catch(error => console.warn(error));
     };
 
     useEffect(() => {
@@ -73,6 +83,7 @@ export default function Location({ navigation }) {
             <Header setpoSitionTarget={setpoSitionTarget} handlePosition={handlePosition} navigation={navigation} />
             <MapView
                 // scrollEnabled={false}
+                minZoomLevel={17}
                 provider={PROVIDER_GOOGLE} // remove if not using Google Maps
                 style={styles.map}
                 initialRegion={curentPosition}
