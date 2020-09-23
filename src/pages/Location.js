@@ -9,14 +9,17 @@ import Header from '../components/Headers/HeaderLocation';
 import { bgWhite, MainColor, borderBlack2, fontBlack1, fontWhite, fontBlack2, fontBlack } from '../assets/colors';
 import { sizeFont, sizeWidth } from '../assets/responsive';
 import { Poppins } from '../assets/fonts/Poppins';
+import RBSheet from 'react-native-raw-bottom-sheet';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 
 export default function Location({ navigation }) {
+    const refRBSheet = useRef();
     const mapView = useRef(null);
     const [curentPosition, setCurentPosition] = useState(null);
     const [poSitionTarget, setpoSitionTarget] = useState(null);
     const [address, setAddress] = useState('');
+    const [addressDetail, setAddressDetail] = useState('');
     const getCoordinate = () => {
         navigator.geolocation.getCurrentPosition(
             position => {
@@ -49,6 +52,10 @@ export default function Location({ navigation }) {
             // title: data.structured_formatting.main_text,
         });
         setAddress(data.description);
+    };
+
+    const HandleAddresDetail = () => {
+        refRBSheet.current.close();
     };
 
     useEffect(() => {
@@ -111,17 +118,58 @@ export default function Location({ navigation }) {
                         </View>
                     </View>
                     <View style={styles.BoxDetail}>
-                        <Text style={{ fontSize: sizeFont(3.3) }}>Detail Alamat</Text>
-                        <TextInput placeholder="Masukkan detail alamat" />
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                            <Text style={{ fontSize: sizeFont(3.5), fontFamily: Poppins.Medium }}>Detail Alamat</Text>
+                            <TouchableOpacity activeOpacity={0.6} style={{ paddingHorizontal: 10 }} onPress={() => setAddressDetail('')}>
+                                <Text style={{ color: MainColor, fontSize: sizeFont(3.3) }}>Hapus</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <TouchableOpacity onPress={() => refRBSheet.current.open()} activeOpacity={1}>
+                            {
+                                addressDetail ?
+                                    <Text style={{ fontSize: sizeFont(3.3), color: fontBlack, marginVertical: 5 }}>{addressDetail}</Text> :
+                                    <Text style={{ fontSize: sizeFont(3.3), color: fontBlack2, marginVertical: 5 }}>Masukkan detail alamat</Text>
+                            }
+                        </TouchableOpacity>
                     </View>
                 </ScrollView>
                 <TouchableOpacity activeOpacity={0.6} style={styles.Btn}>
                     <Text style={{ fontSize: sizeFont(3.5), color: fontWhite }}>Simpan</Text>
                 </TouchableOpacity>
             </View>
+            <RBSheet
+                ref={refRBSheet}
+                closeOnDragDown={true}
+                closeOnPressMask={true}
+                height={sizeHeight(8)}
+                customStyles={{
+                    wrapper: {
+                        backgroundColor: 'transparent',
+                    },
+                    draggableIcon: {
+                        // backgroundColor: 'transparent',
+                        position: 'absolute',
+                        top: -999,
+                    },
+                    container: {},
+                }}
+            >
+                <InputComponent HandleAddresDetail={() => HandleAddresDetail()} setAddressDetail={setAddressDetail} />
+            </RBSheet>
         </View>
     );
 }
+
+const InputComponent = ({ HandleAddresDetail, setAddressDetail }) => {
+    return (
+        <View style={styles.BoxInputAddress}>
+            <TextInput multiline autoFocus={true} onChangeText={e => setAddressDetail(e)} selectionColor={MainColor} style={styles.Input} placeholder="Masukkan Alamat" />
+            <TouchableOpacity onPress={() => HandleAddresDetail()} activeOpacity={0.6} style={styles.BtnOk}>
+                <Text style={{ color: fontWhite }}>Ok</Text>
+            </TouchableOpacity>
+        </View>
+    );
+};
 
 const styles = StyleSheet.create({
     container: {
@@ -177,5 +225,23 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         alignItems: 'center',
         marginTop: sizeHeight(2),
+    },
+    BoxInputAddress: {
+        borderTopWidth: 1,
+        borderColor: borderBlack2,
+        paddingLeft: 20,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    BtnOk: {
+        backgroundColor: MainColor,
+        padding: 20,
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: '100%',
+    },
+    Input: {
+        // borderWidth: 1,
+        width: '80%',
     },
 });
