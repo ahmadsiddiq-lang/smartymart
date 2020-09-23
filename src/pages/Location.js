@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { useState, useRef, useEffect } from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, Image, ScrollView } from 'react-native';
-import { SCREEN_WIDTH, sizeHeight } from '../assets/responsive';
+import { SCREEN_HEIGHT, SCREEN_WIDTH, sizeHeight } from '../assets/responsive';
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import '@react-native-community/geolocation';
 navigator.geolocation = require('@react-native-community/geolocation');
@@ -58,6 +58,10 @@ export default function Location({ navigation }) {
         refRBSheet.current.close();
     };
 
+    const handleOnchangeRegion = region => {
+        console.log(region);
+    };
+
     useEffect(() => {
         getCoordinate();
         return () => {
@@ -77,27 +81,20 @@ export default function Location({ navigation }) {
                 ref={mapView}
                 loadingEnabled={true}
                 showsCompass={false}
-
-            >
-                {
-                    poSitionTarget && (
-                        <Marker
-                            draggable
-                            onDragEnd={(e) => { console.log('dragEnd', e.nativeEvent.coordinate); }}
-                            coordinate={poSitionTarget}>
-                            <View style={{
-                                marginTop: sizeWidth(15),
-                            }}>
-                                <Image style={{
-                                    resizeMode: 'contain',
-                                    width: sizeWidth(10),
-                                    height: sizeWidth(13),
-                                }} source={require('../assets/images/Icons/Marker.png')} />
-                            </View>
-                        </Marker>
-                    )
-                }
-            </MapView>
+                onRegionChangeComplete={e => handleOnchangeRegion(e)}
+            />
+            <View style={{
+                // marginTop: sizeWidth(15),
+                position: 'absolute',
+                left: SCREEN_WIDTH / 2 - 25,
+                top: SCREEN_HEIGHT / 4 - 35,
+            }}>
+                <Image style={{
+                    resizeMode: 'contain',
+                    width: sizeWidth(10),
+                    height: sizeWidth(13),
+                }} source={require('../assets/images/Icons/Marker.png')} />
+            </View>
             <View style={styles.Content}>
                 <ScrollView showsVerticalScrollIndicator={false}>
                     <Text style={{ fontSize: sizeFont(3.5), fontFamily: Poppins.Medium }}>Lokasi Pada Peta</Text>
@@ -134,7 +131,7 @@ export default function Location({ navigation }) {
                     </View>
                 </ScrollView>
                 <TouchableOpacity activeOpacity={0.6} style={styles.Btn}>
-                    <Text style={{ fontSize: sizeFont(3.5), color: fontWhite }}>Simpan</Text>
+                    <Text style={{ fontSize: sizeFont(3.5), color: fontWhite, fontFamily: Poppins.Medium }}>Simpan</Text>
                 </TouchableOpacity>
             </View>
             <RBSheet
