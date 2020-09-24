@@ -84,14 +84,35 @@ export default class Home extends Component {
     }
 
     handleQtyPlus = (id) => {
-        this.setState({
-            Qty: { ...this.state.Qty, [id]: this.state.Qty[id] + 1 },
-        });
+        if (this.state.Cart.length > 0) {
+            this.setState({
+                Qty: { ...this.state.Qty, [id]: this.state.Qty[id] + 1 },
+            });
+            this.state.Cart.forEach((item, index) => {
+                if (item.id === id) {
+                    this.state.Cart[index].harga = item.harga * (this.state.Qty[id] + 1);
+                    this.setState({
+                        Cart: this.state.Cart,
+                    });
+                }
+            });
+        }
     }
     handleQtyMinu = (id) => {
-        this.setState({
-            Qty: { ...this.state.Qty, [id]: this.state.Qty[id] - 1 },
-        });
+        // console.log(this.state.Qty[id]);
+        if (this.state.Qty[id] > 1) {
+            this.setState({
+                Qty: { ...this.state.Qty, [id]: this.state.Qty[id] - 1 },
+            });
+            this.state.Cart.forEach((item, index) => {
+                if (item.id === id) {
+                    this.state.Cart[index].harga = item.harga / this.state.Qty[id];
+                    this.setState({
+                        Cart: this.state.Cart,
+                    });
+                }
+            });
+        }
     }
 
     componentDidMount() {

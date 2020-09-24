@@ -45,7 +45,7 @@ export default function ProductList({ navigation, handleCart, Cart, dataProduct,
                                 <View style={{ flex: 1, justifyContent: 'flex-end' }}>
                                     {item.status ?
                                         <View style={styles.BoxQty}>
-                                            <TouchableOpacity onPress={() => handleQtyMinu(item.id)} activeOpacity={0.6}>
+                                            <TouchableOpacity onPress={() => handleQtyMinu(item.id, index)} activeOpacity={0.6}>
                                                 <Ionicons name="remove" color={MainColor} size={sizeFont(4)} style={{ paddingHorizontal: 8 }} />
                                             </TouchableOpacity>
                                             {/* <TextInput selectionColor={MainColor} keyboardType="numeric" style={{
