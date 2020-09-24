@@ -134,7 +134,7 @@ export default class Home extends Component {
                     Navigation={this.props.navigation}
                 />
                 <View style={styles.Footer}>
-                    <TouchableOpacity onPress={() => console.log(this.state.Qty)} activeOpacity={0.8} style={styles.Btn}>
+                    <TouchableOpacity activeOpacity={0.8} style={styles.Btn}>
                         <View style={{ flexDirection: 'row' }}>
                             <Text style={{ color: fontWhite, fontSize: sizeFont(3.5) }}>{this.state.Cart.length} Items</Text>
                             <View style={{ borderLeftWidth: 1, borderColor: borderWhite, marginLeft: 8, paddingLeft: 8 }}>
