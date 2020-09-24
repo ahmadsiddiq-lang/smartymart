@@ -1,3 +1,4 @@
+/* eslint-disable react/no-did-mount-set-state */
 /* eslint-disable react-native/no-inline-styles */
 import React, { Component } from 'react';
 import { StyleSheet, View, TouchableOpacity, Text, Image, ToastAndroid } from 'react-native';
@@ -28,6 +29,7 @@ export default class Home extends Component {
     state = {
         Cart: [],
         data: [],
+        Qty: [],
     }
 
     handleHarga = () => {
@@ -68,19 +70,50 @@ export default class Home extends Component {
         } else {
             this.state.data.push({ ...dataInput });
             this.setState({ Cart: this.state.data });
-            console.log('kosong');
+            // console.log('kosong');
         }
-        // console.log(this.state.Cart);
+        // SetQty
     };
+
+    handleSetQty = () => {
+        const con = {};
+        dataProduct.forEach((x, i) => {
+            con[x.id] = 1;
+        });
+        this.setState({ Qty: con });
+    }
+
+    handleQtyPlus = (id) => {
+        this.setState({
+            Qty: { ...this.state.Qty, [id]: this.state.Qty[id] + 1 },
+        });
+    }
+    handleQtyMinu = (id) => {
+        this.setState({
+            Qty: { ...this.state.Qty, [id]: this.state.Qty[id] - 1 },
+        });
+    }
+
+    componentDidMount() {
+        this.handleSetQty();
+    }
 
     render() {
         return (
             <View style={styles.Container}>
                 <Header Navigation={this.props.navigation} />
                 <Banner Navigation={this.props.navigation} dataBanner={dataBanner} />
-                <ProductList dataProduct={dataProduct} handleCart={this.handleCart} Cart={this.state.Cart} Navigation={this.props.navigation} />
+                <ProductList
+                    handleQtyPlus={this.handleQtyPlus}
+                    handleQtyMinu={this.handleQtyMinu}
+                    Qty={this.state.Qty}
+                    dataProduct={dataProduct}
+                    handleCart={this.handleCart}
+                    Cart={this.state.Cart}
+                    Navigation={this.props.navigation}
+                />
                 <View style={styles.Footer}>
-                    <TouchableOpacity onPress={() => this.handleHarga()} activeOpacity={0.8} style={styles.Btn}>
+                    <TouchableOpacity onPress={() => console.log(this.state.Qty)} activeOpacity={0.8} style={styles.Btn}>
                         <View style={{ flexDirection: 'row' }}>
                             <Text style={{ color: fontWhite, fontSize: sizeFont(3.5) }}>{this.state.Cart.length} Items</Text>
                             <View style={{ borderLeftWidth: 1, borderColor: borderWhite, marginLeft: 8, paddingLeft: 8 }}>

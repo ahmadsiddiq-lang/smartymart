@@ -1,18 +1,37 @@
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView, TextInput } from 'react-native';
 import { bgBlack2, fontBlack1, borderBlack2, MainColor, fontWhite } from '../../assets/colors';
 import { sizeWidth, sizeFont, sizeHeight } from '../../assets/responsive';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-export default function ProductList({ navigation, handleCart, Cart, dataProduct }) {
+export default function ProductList({ navigation, handleCart, Cart, dataProduct, Qty, handleQtyPlus, handleQtyMinu }) {
 
+    const [stateDataProduct, setDataProduct] = useState([]);
+    const handleProduct = (item, index) => {
+        handleCart(item);
+        const newData = [];
+        newData.push({ ...stateDataProduct[index], status: true });
+        if (item) {
+            stateDataProduct[index] = newData[0];
+            // console.log(stateDataProduct);
+            setDataProduct(stateDataProduct);
+        } else {
+            setDataProduct([]);
+        }
+    };
 
+    useEffect(() => {
+        setDataProduct(dataProduct);
+        return () => {
+            setDataProduct([]);
+        };
+    }, [dataProduct]);
     return (
         <View style={styles.Container}>
             <ScrollView showsVerticalScrollIndicator={false}>
-                {
-                    dataProduct.map((item, index) => {
+                {stateDataProduct &&
+                    stateDataProduct.map((item, index) => {
                         return (
                             <View key={index} style={styles.BoxList}>
                                 <View style={styles.BoxImage}>
@@ -24,24 +43,27 @@ export default function ProductList({ navigation, handleCart, Cart, dataProduct 
                                     <Text style={{ fontSize: sizeFont(3.3) }}>Rp. {item.harga}</Text>
                                 </View>
                                 <View style={{ flex: 1, justifyContent: 'flex-end' }}>
-                                    <TouchableOpacity onPress={() => handleCart(item)} activeOpacity={0.6} style={styles.BtnTambah}>
-                                        <Ionicons name="add" size={sizeFont(5)} color={fontWhite} />
-                                        <Text style={{ color: fontWhite, marginLeft: 5 }}>Tambah</Text>
-                                    </TouchableOpacity>
-                                    {/* <View style={styles.BoxQty}>
-                                        <TouchableOpacity activeOpacity={0.6}>
-                                            <Ionicons name="remove" color={MainColor} size={sizeFont(4)} style={{ paddingHorizontal: 8 }} />
+                                    {item.status ?
+                                        <View style={styles.BoxQty}>
+                                            <TouchableOpacity onPress={() => handleQtyMinu(item.id)} activeOpacity={0.6}>
+                                                <Ionicons name="remove" color={MainColor} size={sizeFont(4)} style={{ paddingHorizontal: 8 }} />
+                                            </TouchableOpacity>
+                                            {/* <TextInput selectionColor={MainColor} keyboardType="numeric" style={{
+                                                padding: 0,
+                                                minWidth: sizeWidth(5),
+                                                maxWidth: sizeWidth(15),
+                                                textAlign: 'center',
+                                            }} /> */}
+                                            <Text>{Qty[item.id]}</Text>
+                                            <TouchableOpacity onPress={() => handleQtyPlus(item.id)} activeOpacity={0.6}>
+                                                <Ionicons name="add" color={MainColor} size={sizeFont(4)} style={{ paddingHorizontal: 8 }} />
+                                            </TouchableOpacity>
+                                        </View> :
+                                        <TouchableOpacity onPress={() => handleProduct(item, index)} activeOpacity={0.6} style={styles.BtnTambah}>
+                                            <Ionicons name="add" size={sizeFont(5)} color={fontWhite} />
+                                            <Text style={{ color: fontWhite, marginLeft: 5 }}>Tambah</Text>
                                         </TouchableOpacity>
-                                        <TextInput selectionColor={MainColor} keyboardType="numeric" style={{
-                                            padding: 0,
-                                            minWidth: sizeWidth(5),
-                                            maxWidth: sizeWidth(15),
-                                            textAlign: 'center',
-                                        }} />
-                                        <TouchableOpacity activeOpacity={0.6}>
-                                            <Ionicons name="add" color={MainColor} size={sizeFont(4)} style={{ paddingHorizontal: 8 }} />
-                                        </TouchableOpacity>
-                                    </View> */}
+                                    }
                                 </View>
                             </View>
                         );
