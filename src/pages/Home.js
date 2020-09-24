@@ -1,7 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, { useState } from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, View, TouchableOpacity, Text, Image } from 'react-native';
-import { set } from 'react-native-reanimated';
 import { bgWhite, MainColor, borderWhite, fontWhite } from '../assets/colors';
 import { sizeWidth, sizeFont } from '../assets/responsive';
 import Header from '../components/Headers/HeaderHome';
@@ -24,39 +23,42 @@ const dataProduct = [
     { image: require('../assets/images/Product/Produk6.png'), harga: 28000 },
 ];
 
-export default function Home({ Navigation }) {
+export default class Home extends Component {
 
-    const [Cart, setCart] = useState([]);
+    state = {
+        Cart: [],
+        data: [],
+    }
 
-    const handleCart = (dataInput) => {
-        // let newData = [];
-        Cart.push({ ...dataInput });
-        console.log(Cart);
-        setCart(Cart);
+    handleCart = (dataInput) => {
+        this.state.Cart.push({ ...dataInput });
+        this.setState({ data: this.state.Cart });
+        // console.log(this.state.Cart);
     };
 
-
-    return (
-        <View style={styles.Container}>
-            <Header Navigation={Navigation} />
-            <Banner Navigation={Navigation} data={data} />
-            <ProductList dataProduct={dataProduct} handleCart={handleCart} Cart={Cart} Navigation={Navigation} />
-            <View style={styles.Footer}>
-                <TouchableOpacity activeOpacity={0.8} style={styles.Btn}>
-                    <View style={{ flexDirection: 'row' }}>
-                        <Text style={{ color: fontWhite, fontSize: sizeFont(3.5) }}>{Cart.length} Items</Text>
-                        <View style={{ borderLeftWidth: 1, borderColor: borderWhite, marginLeft: 8, paddingLeft: 8 }}>
-                            <Text style={{ color: fontWhite, fontSize: sizeFont(3.5) }}>Rp. 270.000</Text>
+    render() {
+        return (
+            <View style={styles.Container}>
+                <Header Navigation={this.props.navigation} />
+                <Banner Navigation={this.props.navigation} data={data} />
+                <ProductList dataProduct={dataProduct} handleCart={this.handleCart} Cart={this.state.Cart} Navigation={this.props.navigation} />
+                <View style={styles.Footer}>
+                    <TouchableOpacity activeOpacity={0.8} style={styles.Btn}>
+                        <View style={{ flexDirection: 'row' }}>
+                            <Text style={{ color: fontWhite, fontSize: sizeFont(3.5) }}>{this.state.data.length} Items</Text>
+                            <View style={{ borderLeftWidth: 1, borderColor: borderWhite, marginLeft: 8, paddingLeft: 8 }}>
+                                <Text style={{ color: fontWhite, fontSize: sizeFont(3.5) }}>Rp. 270.000</Text>
+                            </View>
                         </View>
-                    </View>
-                    <Image style={{
-                        resizeMode: 'contain',
-                        width: sizeWidth(5),
-                    }} source={require('../assets/images/Icons/IconKeranjangBawah.png')} />
-                </TouchableOpacity>
+                        <Image style={{
+                            resizeMode: 'contain',
+                            width: sizeWidth(5),
+                        }} source={require('../assets/images/Icons/IconKeranjangBawah.png')} />
+                    </TouchableOpacity>
+                </View>
             </View>
-        </View>
-    );
+        );
+    }
 }
 
 const styles = StyleSheet.create({
