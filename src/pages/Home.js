@@ -1,13 +1,13 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { Component } from 'react';
-import { StyleSheet, View, TouchableOpacity, Text, Image } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, Text, Image, ToastAndroid } from 'react-native';
 import { bgWhite, MainColor, borderWhite, fontWhite } from '../assets/colors';
 import { sizeWidth, sizeFont } from '../assets/responsive';
 import Header from '../components/Headers/HeaderHome';
 import Banner from '../components/Home/Banner';
 import ProductList from '../components/Home/ProductList';
 
-const data = [
+const dataBanner = [
     { image: require('../assets/images/Banner/Banner1.png') },
     { image: require('../assets/images/Banner/Banner2.png') },
     { image: require('../assets/images/Banner/Banner1.png') },
@@ -15,12 +15,12 @@ const data = [
 ];
 
 const dataProduct = [
-    { image: require('../assets/images/Product/Produk1.png'), harga: 24000 },
-    { image: require('../assets/images/Product/Produk2.png'), harga: 25000 },
-    { image: require('../assets/images/Product/Produk3.png'), harga: 21000 },
-    { image: require('../assets/images/Product/Produk4.png'), harga: 23000 },
-    { image: require('../assets/images/Product/Produk5.png'), harga: 20000 },
-    { image: require('../assets/images/Product/Produk6.png'), harga: 28000 },
+    { id: 1, image: require('../assets/images/Product/Produk1.png'), harga: 24000 },
+    { id: 2, image: require('../assets/images/Product/Produk2.png'), harga: 25000 },
+    { id: 3, image: require('../assets/images/Product/Produk3.png'), harga: 21000 },
+    { id: 4, image: require('../assets/images/Product/Produk4.png'), harga: 23000 },
+    { id: 5, image: require('../assets/images/Product/Produk5.png'), harga: 20000 },
+    { id: 6, image: require('../assets/images/Product/Produk6.png'), harga: 28000 },
 ];
 
 export default class Home extends Component {
@@ -30,9 +30,46 @@ export default class Home extends Component {
         data: [],
     }
 
+    handleHarga = () => {
+        let total = 0;
+        this.state.Cart.forEach((item, index) => {
+            total += this.state.Cart[index].harga;
+        });
+        return total;
+    }
+
+    // conver to rupiah
+    rupiah = (number) => {
+        var reverse = number.toString().split('').reverse().join(''),
+            thousand = reverse.match(/\d{1,3}/g);
+        thousand = thousand.join('.').split('').reverse().join('');
+        return thousand;
+    }
+
     handleCart = (dataInput) => {
-        this.state.Cart.push({ ...dataInput });
-        this.setState({ data: this.state.Cart });
+        if (this.state.Cart.length > 0) {
+            let status = false;
+            this.state.Cart.forEach((item, index) => {
+                if (dataInput.id === item.id) {
+                    status = true;
+                }
+            });
+            if (status === false) {
+                this.state.data.push({ ...dataInput });
+                this.setState({ Cart: this.state.data });
+                // console.log(item.id);
+            } else {
+                ToastAndroid.showWithGravity(
+                    'Product sudah ada',
+                    ToastAndroid.SHORT,
+                    ToastAndroid.CENTER,
+                );
+            }
+        } else {
+            this.state.data.push({ ...dataInput });
+            this.setState({ Cart: this.state.data });
+            console.log('kosong');
+        }
         // console.log(this.state.Cart);
     };
 
@@ -40,14 +77,14 @@ export default class Home extends Component {
         return (
             <View style={styles.Container}>
                 <Header Navigation={this.props.navigation} />
-                <Banner Navigation={this.props.navigation} data={data} />
+                <Banner Navigation={this.props.navigation} dataBanner={dataBanner} />
                 <ProductList dataProduct={dataProduct} handleCart={this.handleCart} Cart={this.state.Cart} Navigation={this.props.navigation} />
                 <View style={styles.Footer}>
-                    <TouchableOpacity activeOpacity={0.8} style={styles.Btn}>
+                    <TouchableOpacity onPress={() => this.handleHarga()} activeOpacity={0.8} style={styles.Btn}>
                         <View style={{ flexDirection: 'row' }}>
-                            <Text style={{ color: fontWhite, fontSize: sizeFont(3.5) }}>{this.state.data.length} Items</Text>
+                            <Text style={{ color: fontWhite, fontSize: sizeFont(3.5) }}>{this.state.Cart.length} Items</Text>
                             <View style={{ borderLeftWidth: 1, borderColor: borderWhite, marginLeft: 8, paddingLeft: 8 }}>
-                                <Text style={{ color: fontWhite, fontSize: sizeFont(3.5) }}>Rp. 270.000</Text>
+                                <Text style={{ color: fontWhite, fontSize: sizeFont(3.5) }}>Rp. {this.rupiah(this.handleHarga())}</Text>
                             </View>
                         </View>
                         <Image style={{

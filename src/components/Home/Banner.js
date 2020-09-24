@@ -25,7 +25,7 @@ export default class Banner extends Component {
 
     componentDidMount = () => {
         this.interval = setInterval(() => {
-            this.setState(prev => ({ indexOf: prev.indexOf === this.props.data.length - 1 ? 0 : prev.indexOf + 1 }),
+            this.setState(prev => ({ indexOf: prev.indexOf === this.props.dataBanner.length - 1 ? 0 : prev.indexOf + 1 }),
                 () => {
                     this.scrollRef.current.scrollTo({
                         animatde: true,
@@ -52,7 +52,7 @@ export default class Banner extends Component {
                     ref={this.scrollRef}
                 >
                     {
-                        this.props.data.map((item, index) => {
+                        this.props.dataBanner.map((item, index) => {
                             return (
                                 <View style={styles.BoxImage} key={index}>
                                     <Image style={styles.Image} source={item.image} />
@@ -63,7 +63,7 @@ export default class Banner extends Component {
                 </ScrollView>
                 <View style={styles.BoxCircle}>
                     {
-                        this.props.data.map((item, index) => {
+                        this.props.dataBanner.map((item, index) => {
                             return (
                                 <View key={index} style={[styles.Circle, { backgroundColor: index === this.state.indexOf ? MainColor : bgBlack2 }]} />
                             );
