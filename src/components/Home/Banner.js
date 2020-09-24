@@ -81,12 +81,12 @@ const styles = StyleSheet.create({
     },
     BoxImage: {
         width: SCREEN_WIDTH,
-        height: sizeHeight(24),
+        height: sizeWidth(45),
     },
     Image: {
-        resizeMode: 'contain',
+        resizeMode: 'stretch',
         width: SCREEN_WIDTH,
-        height: sizeHeight(24),
+        height: '100%',
     },
     BoxCircle: {
         position: 'absolute',

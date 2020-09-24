@@ -61,7 +61,7 @@ export default function ProductList({ navigation, handleCart, Cart, dataProduct,
                                         </View> :
                                         <TouchableOpacity onPress={() => handleProduct(item, index)} activeOpacity={0.6} style={styles.BtnTambah}>
                                             <Ionicons name="add" size={sizeFont(5)} color={fontWhite} />
-                                            <Text style={{ color: fontWhite, marginLeft: 5 }}>Tambah</Text>
+                                            <Text style={{ color: fontWhite, fontSize: sizeFont(3.3) }}>Tambah</Text>
                                         </TouchableOpacity>
                                     }
                                 </View>
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         paddingVertical: 3,
         flexDirection: 'row',
-        paddingLeft: 10,
+        paddingHorizontal: 10,
     },
     BoxQty: {
         flexDirection: 'row',
