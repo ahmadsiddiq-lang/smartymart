@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView, TextInput } from 'react-native';
+import React from 'react';
+import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView } from 'react-native';
 import { bgBlack2, fontBlack1, borderBlack2, MainColor, fontWhite } from '../../assets/colors';
 import { sizeWidth, sizeFont, sizeHeight } from '../../assets/responsive';
 import Ionicons from 'react-native-vector-icons/Ionicons';

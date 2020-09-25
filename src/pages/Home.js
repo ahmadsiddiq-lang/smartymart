@@ -131,7 +131,6 @@ export default class Home extends Component {
     }
 
     handleBtnCart = () => {
-        console.log(this.state.Cart);
         if (this.state.stateDataProduct.length > 0) {
             this.state.stateDataProduct.forEach((item, index) => {
                 const newData = [];
@@ -149,8 +148,8 @@ export default class Home extends Component {
                 data: [],
                 Qty: [],
             });
+            this.props.navigation.navigate('Keranjang');
         }
-        this.props.navigation.navigate('Keranjang');
     }
 
     componentDidMount() {
