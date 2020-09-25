@@ -131,7 +131,7 @@ export default class Home extends Component {
     }
 
     handleBtnCart = () => {
-        if (this.state.stateDataProduct.length > 0) {
+        if (this.state.Cart.length > 0) {
             this.state.stateDataProduct.forEach((item, index) => {
                 const newData = [];
                 newData.push({ ...dataProduct[index], status: false });
@@ -149,6 +149,12 @@ export default class Home extends Component {
                 Qty: [],
             });
             this.props.navigation.navigate('Keranjang');
+        } else {
+            ToastAndroid.showWithGravity(
+                'Items Empty',
+                ToastAndroid.SHORT,
+                ToastAndroid.CENTER,
+            );
         }
     }
 
