@@ -36,7 +36,7 @@ export default function DetailPesanan({ navigation }) {
                     <View style={{ paddingHorizontal: 20, marginTop: 5 }}>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                             <Text style={{ fontSize: sizeFont(3.5), fontFamily: Poppins.Medium, marginBottom: 5 }}>Alamat Penerima</Text>
-                            <TouchableOpacity activeOpacity={0.6} style={{ paddingHorizontal: 10 }}>
+                            <TouchableOpacity onPress={() => navigation.navigate('Location')} activeOpacity={0.6} style={{ paddingHorizontal: 10 }}>
                                 <Text style={{ color: MainColor }}>{Address.length > 0 ? 'Ubah' : 'Pilih'}</Text>
                             </TouchableOpacity>
                         </View>

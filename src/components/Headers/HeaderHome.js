@@ -19,7 +19,7 @@ export default function HeaderHome({ navigation }) {
                 <TouchableOpacity activeOpacity={0.6} style={{ padding: 7, borderRadius: 100, backgroundColor: bgWhiteRGBA }}>
                     <Ionicons name="search" color={fontWhite} size={sizeFont(5)} />
                 </TouchableOpacity>
-                <TouchableOpacity activeOpacity={0.6} style={{ padding: 7, marginLeft: 15, borderRadius: 100, backgroundColor: bgWhiteRGBA }}>
+                <TouchableOpacity onPress={() => navigation.navigate('Keranjang')} activeOpacity={0.6} style={{ padding: 7, marginLeft: 15, borderRadius: 100, backgroundColor: bgWhiteRGBA }}>
                     <Ionicons name="cart" color={fontWhite} size={sizeFont(5)} />
                     <View style={styles.Circle}>
                         <Text style={{ color: fontWhite, fontSize: sizeFont(2.3) }}>4</Text>

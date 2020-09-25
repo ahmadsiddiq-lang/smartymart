@@ -5,28 +5,7 @@ import { bgBlack2, fontBlack1, borderBlack2, MainColor, fontWhite } from '../../
 import { sizeWidth, sizeFont, sizeHeight } from '../../assets/responsive';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-export default function ProductList({ navigation, handleCart, Cart, dataProduct, Qty, handleQtyPlus, handleQtyMinu }) {
-
-    const [stateDataProduct, setDataProduct] = useState([]);
-    const handleProduct = (item, index) => {
-        handleCart(item);
-        const newData = [];
-        newData.push({ ...stateDataProduct[index], status: true });
-        if (item) {
-            stateDataProduct[index] = newData[0];
-            // console.log(stateDataProduct);
-            setDataProduct(stateDataProduct);
-        } else {
-            setDataProduct([]);
-        }
-    };
-
-    useEffect(() => {
-        setDataProduct(dataProduct);
-        return () => {
-            setDataProduct([]);
-        };
-    }, [dataProduct]);
+export default function ProductList({ navigation, Qty, handleQtyPlus, handleQtyMinu, stateDataProduct, handleProduct }) {
     return (
         <View style={styles.Container}>
             <ScrollView showsVerticalScrollIndicator={false}>
@@ -43,7 +22,7 @@ export default function ProductList({ navigation, handleCart, Cart, dataProduct,
                                     <Text style={{ fontSize: sizeFont(3.3) }}>Rp. {item.harga}</Text>
                                 </View>
                                 <View style={{ flex: 1, justifyContent: 'flex-end' }}>
-                                    {item.status ?
+                                    {item.status === true ?
                                         <View style={styles.BoxQty}>
                                             <TouchableOpacity onPress={() => handleQtyMinu(item.id, index)} activeOpacity={0.6}>
                                                 <Ionicons name="remove" color={MainColor} size={sizeFont(4)} style={{ paddingHorizontal: 8 }} />

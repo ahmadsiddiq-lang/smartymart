@@ -4,8 +4,8 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import Header from '../components/Headers/HeaderPages';
 import Content from '../components/Keranjang/Content';
 import CheckBox from '@react-native-community/checkbox';
-import { bgWhite, borderBlack2, MainColor } from '../assets/colors';
-import { sizeFont } from '../assets/responsive';
+import { bgWhite, borderBlack2, MainColor, fontWhite } from '../assets/colors';
+import { sizeFont, sizeHeight } from '../assets/responsive';
 
 
 export default function Keranjang({ navigation }) {
@@ -38,6 +38,15 @@ export default function Keranjang({ navigation }) {
                 </TouchableOpacity>
             </View>
             <Content navigation={navigation} setToggleCheck={setToggleCheck} toggleCheck={toggleCheck} />
+            <View style={styles.Footer}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                    <Text style={{ fontSize: sizeFont(3.5) }}>Sub Total</Text>
+                    <Text style={{ fontSize: sizeFont(3.5), color: MainColor }}>Rp. 485.000</Text>
+                </View>
+                <TouchableOpacity onPress={() => navigation.navigate('DetailPesanan')} activeOpacity={0.6} style={styles.BtnBeli}>
+                    <Text style={{ color: fontWhite }}>Beli</Text>
+                </TouchableOpacity>
+            </View>
         </View>
     );
 }
@@ -59,5 +68,19 @@ const styles = StyleSheet.create({
         padding: 7,
         // borderWidth: 1,
         justifyContent: 'center',
+    },
+    Footer: {
+        backgroundColor: bgWhite,
+        paddingHorizontal: 20,
+        paddingVertical: 10,
+        borderTopWidth: 1,
+        borderColor: borderBlack2,
+    },
+    BtnBeli: {
+        backgroundColor: MainColor,
+        alignItems: 'center',
+        paddingVertical: sizeFont(2),
+        borderRadius: 10,
+        marginTop: sizeHeight(1.2),
     },
 });

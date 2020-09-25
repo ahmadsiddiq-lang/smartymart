@@ -30,7 +30,22 @@ export default class Home extends Component {
         Cart: [],
         data: [],
         Qty: [],
+        stateDataProduct: [],
     }
+
+    handleProduct = (item, index) => {
+        this.handleCart(item);
+        this.handleSetQty();
+        const newData = [];
+        newData.push({ ...dataProduct[index], status: true });
+        if (item) {
+            dataProduct[index] = newData[0];
+            // console.log(stateDataProduct);
+            this.setState({ stateDataProduct: dataProduct });
+        } else {
+            this.setState({ stateDataProduct: [] });
+        }
+    };
 
     handleHarga = () => {
         let total = 0;
@@ -115,26 +130,52 @@ export default class Home extends Component {
         }
     }
 
+    handleBtnCart = () => {
+        console.log(this.state.Cart);
+        if (this.state.stateDataProduct.length > 0) {
+            this.state.stateDataProduct.forEach((item, index) => {
+                const newData = [];
+                newData.push({ ...dataProduct[index], status: false });
+                if (item) {
+                    dataProduct[index] = newData[0];
+                    // console.log(stateDataProduct);
+                    this.setState({ stateDataProduct: dataProduct });
+                } else {
+                    this.setState({ stateDataProduct: [] });
+                }
+            });
+            this.setState({
+                Cart: [],
+                data: [],
+                Qty: [],
+            });
+        }
+        // this.props.navigation.navigate('Keranjang');
+    }
+
     componentDidMount() {
         this.handleSetQty();
+        this.setState({ stateDataProduct: dataProduct });
     }
 
     render() {
         return (
             <View style={styles.Container}>
-                <Header Navigation={this.props.navigation} />
-                <Banner Navigation={this.props.navigation} dataBanner={dataBanner} />
+                <Header navigation={this.props.navigation} />
+                <Banner navigation={this.props.navigation} dataBanner={dataBanner} />
                 <ProductList
+                    handleProduct={this.handleProduct}
                     handleQtyPlus={this.handleQtyPlus}
                     handleQtyMinu={this.handleQtyMinu}
                     Qty={this.state.Qty}
-                    dataProduct={dataProduct}
+                    // dataProduct={dataProduct}
+                    stateDataProduct={this.state.stateDataProduct}
                     handleCart={this.handleCart}
                     Cart={this.state.Cart}
-                    Navigation={this.props.navigation}
+                    navigation={this.props.navigation}
                 />
                 <View style={styles.Footer}>
-                    <TouchableOpacity activeOpacity={0.8} style={styles.Btn}>
+                    <TouchableOpacity onPress={() => this.handleBtnCart()} activeOpacity={0.8} style={styles.Btn}>
                         <View style={{ flexDirection: 'row' }}>
                             <Text style={{ color: fontWhite, fontSize: sizeFont(3.5) }}>{this.state.Cart.length} Items</Text>
                             <View style={{ borderLeftWidth: 1, borderColor: borderWhite, marginLeft: 8, paddingLeft: 8 }}>

@@ -171,7 +171,7 @@ export default function Content({ navigation }) {
                     <Text style={{ fontSize: sizeFont(3.5), marginBottom: 5 }}>Total Bayar</Text>
                     <Text style={{ fontSize: sizeFont(3.5) }}>Rp. 400.000</Text>
                 </View>
-                <TouchableOpacity onPress={() => hanldeProduct()} activeOpacity={0.6} style={styles.BtnBayar}>
+                <TouchableOpacity onPress={() => navigation.navigate('DetailTransaksi')} activeOpacity={0.6} style={styles.BtnBayar}>
                     <Text style={{ color: fontWhite, fontSize: sizeFont(3.5) }}>Bayar</Text>
                 </TouchableOpacity>
             </View>

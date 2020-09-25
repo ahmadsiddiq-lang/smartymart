@@ -143,7 +143,7 @@ export default function Location({ navigation }) {
                         </TouchableOpacity>
                     </View>
                 </ScrollView>
-                <TouchableOpacity activeOpacity={0.6} style={styles.Btn}>
+                <TouchableOpacity onPress={() => navigation.navigate('DetailPesanan')} activeOpacity={0.6} style={styles.Btn}>
                     <Text style={{ fontSize: sizeFont(3.5), color: fontWhite, fontFamily: Poppins.Medium }}>Simpan</Text>
                 </TouchableOpacity>
             </View>
