@@ -16,7 +16,7 @@ export default function HeaderHome({ navigation }) {
                 </View>
             </TouchableOpacity>
             <View style={[styles.Box, { flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end' }]}>
-                <TouchableOpacity activeOpacity={0.6} style={{ padding: 7, borderRadius: 100, backgroundColor: bgWhiteRGBA }}>
+                <TouchableOpacity onPress={() => navigation.navigate('Search')} activeOpacity={0.6} style={{ padding: 7, borderRadius: 100, backgroundColor: bgWhiteRGBA }}>
                     <Ionicons name="search" color={fontWhite} size={sizeFont(5)} />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => navigation.navigate('Keranjang')} activeOpacity={0.6} style={{ padding: 7, marginLeft: 15, borderRadius: 100, backgroundColor: bgWhiteRGBA }}>
