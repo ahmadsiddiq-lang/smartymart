@@ -150,7 +150,7 @@ export default class Home extends Component {
                 Qty: [],
             });
         }
-        // this.props.navigation.navigate('Keranjang');
+        this.props.navigation.navigate('Keranjang');
     }
 
     componentDidMount() {
