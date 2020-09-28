@@ -35,6 +35,19 @@ export default class Keranjang extends Component {
 
     handleCheck = () => {
         this.setState({ toggleCheckBox: !this.state.toggleCheckBox });
+        const con = [];
+        if (this.state.toggleCheckBox) {
+            dataProduct.forEach((x, i) => {
+                con.push({ id: i, CheckBox: false });
+            });
+            this.setState({ idCheck: con });
+        } else {
+            dataProduct.forEach((x, i) => {
+                con.push({ id: i, CheckBox: true });
+            });
+            this.setState({ idCheck: con });
+        }
+
     };
 
     handleIdCheck = () => {
