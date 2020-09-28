@@ -151,6 +151,13 @@ export default class Home extends Component {
                 data: [],
                 Qty: [],
             });
+            const con = {};
+            const array = [];
+            dataProduct.forEach((x, i) => {
+                con[x.id] = 1;
+            });
+            array.push(con);
+            this.setState({ Qty: array });
             this.props.navigation.navigate('Keranjang');
         } else {
             ToastAndroid.showWithGravity(
@@ -171,6 +178,18 @@ export default class Home extends Component {
         this.setState({ Qty: array });
         this.setState({ stateDataProduct: dataProduct });
     }
+
+    componentWillUnmount() {
+        const con = {};
+        const array = [];
+        dataProduct.forEach((x, i) => {
+            con[x.id] = 1;
+        });
+        array.push(con);
+        this.setState({ Qty: array });
+        this.setState({ stateDataProduct: dataProduct });
+    }
+
 
     render() {
         return (
