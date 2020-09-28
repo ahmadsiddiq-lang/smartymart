@@ -35,7 +35,7 @@ export default class Home extends Component {
 
     handleProduct = (item, index) => {
         this.handleCart(item);
-        this.handleSetQty();
+        this.handleSetQty(index);
         const newData = [];
         newData.push({ ...dataProduct[index], status: true });
         if (item) {
@@ -90,22 +90,25 @@ export default class Home extends Component {
         // SetQty
     };
 
-    handleSetQty = () => {
-        const con = {};
-        dataProduct.forEach((x, i) => {
-            con[x.id] = 1;
-        });
-        this.setState({ Qty: con });
+    handleSetQty = (index) => {
+        const con = [...this.state.Qty];
+        // console.log(this.state.Qty[0]);
+        // dataProduct.forEach((x, i) => {
+        //     con[x.id] = 1;
+        // });
+        console.log(con);
+        // this.setState({ Qty: con });
     }
 
     handleQtyPlus = (id) => {
+        console.log(id);
         if (this.state.Cart.length > 0) {
             this.setState({
-                Qty: { ...this.state.Qty, [id]: this.state.Qty[id] + 1 },
+                Qty: [{ ...this.state.Qty[0], [id]: this.state.Qty[0][id] + 1 }],
             });
             this.state.Cart.forEach((item, index) => {
                 if (item.id === id) {
-                    this.state.Cart[index].harga = item.harga * (this.state.Qty[id] + 1);
+                    this.state.Cart[index].harga = item.harga * (this.state.Qty[0][id] + 1);
                     this.setState({
                         Cart: this.state.Cart,
                     });
@@ -115,13 +118,13 @@ export default class Home extends Component {
     }
     handleQtyMinu = (id) => {
         // console.log(this.state.Qty[id]);
-        if (this.state.Qty[id] > 1) {
+        if (this.state.Qty[0][id] > 1) {
             this.setState({
-                Qty: { ...this.state.Qty, [id]: this.state.Qty[id] - 1 },
+                Qty: [{ ...this.state.Qty[0], [id]: this.state.Qty[0][id] - 1 }],
             });
             this.state.Cart.forEach((item, index) => {
                 if (item.id === id) {
-                    this.state.Cart[index].harga = item.harga / this.state.Qty[id];
+                    this.state.Cart[index].harga = item.harga / this.state.Qty[0][id];
                     this.setState({
                         Cart: this.state.Cart,
                     });
@@ -159,7 +162,13 @@ export default class Home extends Component {
     }
 
     componentDidMount() {
-        this.handleSetQty();
+        const con = {};
+        const array = [];
+        dataProduct.forEach((x, i) => {
+            con[x.id] = 1;
+        });
+        array.push(con);
+        this.setState({ Qty: array });
         this.setState({ stateDataProduct: dataProduct });
     }
 
@@ -184,7 +193,9 @@ export default class Home extends Component {
                         <View style={{ flexDirection: 'row' }}>
                             <Text style={{ color: fontWhite, fontSize: sizeFont(3.5) }}>{this.state.Cart.length} Items</Text>
                             <View style={{ borderLeftWidth: 1, borderColor: borderWhite, marginLeft: 8, paddingLeft: 8 }}>
-                                <Text style={{ color: fontWhite, fontSize: sizeFont(3.5) }}>Rp. {this.rupiah(this.handleHarga())}</Text>
+                                <Text style={{ color: fontWhite, fontSize: sizeFont(3.5) }}>Rp. {
+                                    this.rupiah(this.handleHarga())
+                                }</Text>
                             </View>
                         </View>
                         <Image style={{
