@@ -6,22 +6,22 @@ import { MainColor, fontBlack1, borderBlack2, bgBlack2 } from '../../assets/colo
 import { sizeFont, sizeWidth } from '../../assets/responsive';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-const dataProduct = [
-    {
-        stor: 'Agen Smarty Mart 1', address: 'Kemayoran, Jakarta Pusat', listProduct: [
-            { image: require('../../assets/images/Product/Produk3.png'), title: 'Beras Setra Ramos', satuan: '5 Kg', harga: '95.000' },
-            { image: require('../../assets/images/Product/Produk2.png'), title: 'Beras Setra Ramos', satuan: '5 Kg', harga: '95.000' },
-            { image: require('../../assets/images/Product/Produk4.png'), title: 'Beras Setra Ramos', satuan: '5 Kg', harga: '95.000' },
-        ],
-    },
-    {
-        stor: 'Agen Smarty Mart 1', address: 'Kemayoran, Jakarta Pusat', listProduct: [
-            { image: require('../../assets/images/Product/Produk3.png'), title: 'Beras Setra Ramos', satuan: '5 Kg', harga: '95.000' },
-            { image: require('../../assets/images/Product/Produk2.png'), title: 'Beras Setra Ramos', satuan: '5 Kg', harga: '95.000' },
-            { image: require('../../assets/images/Product/Produk4.png'), title: 'Beras Setra Ramos', satuan: '5 Kg', harga: '95.000' },
-        ],
-    },
-];
+// const dataProduct = [
+//     {
+//         stor: 'Agen Smarty Mart 1', address: 'Kemayoran, Jakarta Pusat', listProduct: [
+//             { image: require('../../assets/images/Product/Produk3.png'), title: 'Beras Setra Ramos', satuan: '5 Kg', harga: '95.000' },
+//             { image: require('../../assets/images/Product/Produk2.png'), title: 'Beras Setra Ramos', satuan: '5 Kg', harga: '95.000' },
+//             { image: require('../../assets/images/Product/Produk4.png'), title: 'Beras Setra Ramos', satuan: '5 Kg', harga: '95.000' },
+//         ],
+//     },
+//     {
+//         stor: 'Agen Smarty Mart 1', address: 'Kemayoran, Jakarta Pusat', listProduct: [
+//             { image: require('../../assets/images/Product/Produk3.png'), title: 'Beras Setra Ramos', satuan: '5 Kg', harga: '95.000' },
+//             { image: require('../../assets/images/Product/Produk2.png'), title: 'Beras Setra Ramos', satuan: '5 Kg', harga: '95.000' },
+//             { image: require('../../assets/images/Product/Produk4.png'), title: 'Beras Setra Ramos', satuan: '5 Kg', harga: '95.000' },
+//         ],
+//     },
+// ];
 
 export default class Content extends Component {
 
@@ -30,20 +30,29 @@ export default class Content extends Component {
     }
 
     render() {
+        const { dataProduct, idCheck, CheckActive } = this.props;
         return (
             <View style={styles.Container}>
+                {console.log(idCheck)}
                 <ScrollView showsVerticalScrollIndicator={false}>
                     {
                         dataProduct.map((item, index) => {
                             return (
                                 <View key={index} style={styles.BoxList}>
                                     <View style={styles.BoxHead}>
-                                        <CheckBox
-                                            disabled={false}
-                                            value={this.props.toggleCheck}
-                                            tintColors={{ true: MainColor }}
-                                            onValueChange={(newValue) => this.handleCheck(newValue)}
-                                        />
+                                        <TouchableOpacity
+                                            onPress={() => CheckActive(index, idCheck[index].CheckBox)}
+                                        >
+                                            {
+                                                idCheck.length > 0 &&
+                                                <CheckBox
+                                                    disabled={true}
+                                                    value={idCheck[index].CheckBox}
+                                                    tintColors={{ true: MainColor }}
+                                                // onValueChange={(newValue) => CheckActive(index)}
+                                                />
+                                            }
+                                        </TouchableOpacity>
                                         <View style={{ marginTop: 5, marginLeft: 10 }}>
                                             <Text style={{ fontSize: sizeFont(3.5) }}>Agen Smarty Mart 1</Text>
                                             <View style={{ flexDirection: 'row' }}>

@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, { useState } from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import Header from '../components/Headers/HeaderPages';
 import Content from '../components/Keranjang/Content';
@@ -8,47 +8,99 @@ import { bgWhite, borderBlack2, MainColor, fontWhite } from '../assets/colors';
 import { sizeFont, sizeHeight } from '../assets/responsive';
 
 
-export default function Keranjang({ navigation }) {
+const dataProduct = [
+    {
+        stor: 'Agen Smarty Mart 1', address: 'Kemayoran, Jakarta Pusat', listProduct: [
+            { image: require('../assets/images/Product/Produk3.png'), title: 'Beras Setra Ramos', satuan: '5 Kg', harga: '95.000' },
+            { image: require('../assets/images/Product/Produk2.png'), title: 'Beras Setra Ramos', satuan: '5 Kg', harga: '95.000' },
+            { image: require('../assets/images/Product/Produk4.png'), title: 'Beras Setra Ramos', satuan: '5 Kg', harga: '95.000' },
+        ],
+    },
+    {
+        stor: 'Agen Smarty Mart 1', address: 'Kemayoran, Jakarta Pusat', listProduct: [
+            { image: require('../assets/images/Product/Produk3.png'), title: 'Beras Setra Ramos', satuan: '5 Kg', harga: '95.000' },
+            { image: require('../assets/images/Product/Produk2.png'), title: 'Beras Setra Ramos', satuan: '5 Kg', harga: '95.000' },
+            { image: require('../assets/images/Product/Produk4.png'), title: 'Beras Setra Ramos', satuan: '5 Kg', harga: '95.000' },
+        ],
+    },
+];
 
-    const [toggleCheckBox, setToggleCheckBox] = useState(false);
-    const [toggleCheck, setToggleCheck] = useState(false);
 
-    const handleCheck = () => {
-        setToggleCheckBox(e => !e);
-        if (toggleCheckBox === false) {
-            setToggleCheck(true);
+export default class Keranjang extends Component {
+
+    state = {
+        toggleCheckBox: false,
+        idCheck: [],
+    }
+
+    handleCheck = () => {
+        this.setState({ toggleCheckBox: !this.state.toggleCheckBox });
+    };
+
+    handleIdCheck = () => {
+        const con = [];
+        dataProduct.forEach((x, i) => {
+            con.push({ id: i, CheckBox: false });
+        });
+        this.setState({ idCheck: con });
+    };
+
+    CheckActive = (inputIndex, status) => {
+        // console.log(status);
+        const con = [];
+        if (status) {
+            con.push({ ...this.state.idCheck[inputIndex], CheckBox: false });
+            this.state.idCheck[inputIndex] = con[0];
+            this.setState({ idCheck: this.state.idCheck });
+        } else {
+            con.push({ ...this.state.idCheck[inputIndex], CheckBox: true });
+            this.state.idCheck[inputIndex] = con[0];
+            this.setState({ idCheck: this.state.idCheck });
         }
     };
 
-    return (
-        <View style={styles.Container}>
-            <Header navigation={navigation} title={'Keranjang'} />
-            <View style={styles.Head}>
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <CheckBox
-                        disabled={false}
-                        value={toggleCheckBox}
-                        tintColors={{ true: MainColor }}
-                        onValueChange={(newValue) => handleCheck()}
-                    />
-                    <Text style={{ marginLeft: 10, fontSize: sizeFont(3.3) }}>Pilih semua produk </Text>
+    componentDidMount() {
+        this.handleIdCheck();
+    }
+
+    render() {
+        const { navigation } = this.props;
+        return (
+            <View style={styles.Container}>
+                <Header navigation={navigation} title={'Keranjang'} />
+                <View style={styles.Head}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <CheckBox
+                            disabled={false}
+                            value={this.state.toggleCheckBox}
+                            tintColors={{ true: MainColor }}
+                            onValueChange={(newValue) => this.handleCheck()}
+                        />
+                        <Text style={{ marginLeft: 10, fontSize: sizeFont(3.3) }}>Pilih semua produk </Text>
+                    </View>
+                    <TouchableOpacity activeOpacity={0.6} style={styles.Btn}>
+                        <Text style={{ color: MainColor, fontSize: sizeFont(3.5) }}>Hapus</Text>
+                    </TouchableOpacity>
                 </View>
-                <TouchableOpacity activeOpacity={0.6} style={styles.Btn}>
-                    <Text style={{ color: MainColor, fontSize: sizeFont(3.5) }}>Hapus</Text>
-                </TouchableOpacity>
-            </View>
-            <Content navigation={navigation} setToggleCheck={setToggleCheck} toggleCheck={toggleCheck} />
-            <View style={styles.Footer}>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                    <Text style={{ fontSize: sizeFont(3.5) }}>Sub Total</Text>
-                    <Text style={{ fontSize: sizeFont(3.5), color: MainColor }}>Rp. 485.000</Text>
+                <Content
+                    navigation={navigation}
+                    dataProduct={dataProduct}
+                    idCheck={this.state.idCheck}
+                    CheckActive={this.CheckActive}
+                />
+                <View style={styles.Footer}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                        <Text style={{ fontSize: sizeFont(3.5) }}>Sub Total</Text>
+                        <Text style={{ fontSize: sizeFont(3.5), color: MainColor }}>Rp. 485.000</Text>
+                    </View>
+                    <TouchableOpacity onPress={() => navigation.navigate('DetailPesanan')} activeOpacity={0.6} style={styles.BtnBeli}>
+                        <Text style={{ color: fontWhite }}>Beli</Text>
+                    </TouchableOpacity>
                 </View>
-                <TouchableOpacity onPress={() => navigation.navigate('DetailPesanan')} activeOpacity={0.6} style={styles.BtnBeli}>
-                    <Text style={{ color: fontWhite }}>Beli</Text>
-                </TouchableOpacity>
             </View>
-        </View>
-    );
+        );
+
+    }
 }
 
 const styles = StyleSheet.create({
