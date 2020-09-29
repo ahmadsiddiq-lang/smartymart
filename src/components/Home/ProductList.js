@@ -36,7 +36,7 @@ export default class ProductList extends Component {
                                                     maxWidth: sizeWidth(15),
                                                     textAlign: 'center',
                                                 }} /> */}
-                                                <Text>{Qty[0][item.id]}</Text>
+                                                <Text style={{ fontSize: sizeFont(3) }}>{Qty[0][item.id]}</Text>
                                                 <TouchableOpacity onPress={() => handleQtyPlus(item.id, item.harga)} activeOpacity={0.6}>
                                                     <Ionicons name="add" color={MainColor} size={sizeFont(4)} style={{ paddingHorizontal: 8 }} />
                                                 </TouchableOpacity>

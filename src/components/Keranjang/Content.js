@@ -24,16 +24,10 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 // ];
 
 export default class Content extends Component {
-
-    handleCheck = () => {
-        this.props.setToggleCheck(e => !e);
-    }
-
     render() {
-        const { dataProduct, idCheck, CheckActive } = this.props;
+        const { dataProduct, idCheck, CheckActive, handleQtyProduct, Qty, handlePlus, handleMinus } = this.props;
         return (
             <View style={styles.Container}>
-                {console.log(idCheck)}
                 <ScrollView showsVerticalScrollIndicator={false}>
                     {
                         dataProduct.map((item, index) => {
@@ -73,16 +67,19 @@ export default class Content extends Component {
                                                             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                                                                 <Text style={{ fontSize: sizeFont(3.3) }}>Rp. 95.000</Text>
                                                                 <View style={styles.BoxQty}>
-                                                                    <TouchableOpacity activeOpacity={0.6}>
+                                                                    <TouchableOpacity onPress={() => handleMinus(subItem.id)} activeOpacity={0.6}>
                                                                         <Ionicons name="remove" color={MainColor} size={sizeFont(4)} style={{ paddingHorizontal: 8 }} />
                                                                     </TouchableOpacity>
-                                                                    <TextInput selectionColor={MainColor} keyboardType="numeric" style={{
-                                                                        padding: 0,
-                                                                        minWidth: sizeWidth(5),
-                                                                        maxWidth: sizeWidth(15),
-                                                                        textAlign: 'center',
-                                                                    }} />
-                                                                    <TouchableOpacity activeOpacity={0.6}>
+                                                                    {
+                                                                        Qty[subItem.id] > 0 &&
+                                                                        <TextInput defaultValue={Qty[subItem.id].toString()} selectionColor={MainColor} keyboardType="numeric" style={{
+                                                                            padding: 0,
+                                                                            minWidth: sizeWidth(5),
+                                                                            maxWidth: sizeWidth(15),
+                                                                            textAlign: 'center',
+                                                                        }} />
+                                                                    }
+                                                                    <TouchableOpacity onPress={() => handlePlus(subItem.id)} activeOpacity={0.6}>
                                                                         <Ionicons name="add" color={MainColor} size={sizeFont(4)} style={{ paddingHorizontal: 8 }} />
                                                                     </TouchableOpacity>
                                                                 </View>

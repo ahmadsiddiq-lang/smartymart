@@ -11,16 +11,16 @@ import { sizeFont, sizeHeight } from '../assets/responsive';
 const dataProduct = [
     {
         stor: 'Agen Smarty Mart 1', address: 'Kemayoran, Jakarta Pusat', listProduct: [
-            { image: require('../assets/images/Product/Produk3.png'), title: 'Beras Setra Ramos', satuan: '5 Kg', harga: '95.000' },
-            { image: require('../assets/images/Product/Produk2.png'), title: 'Beras Setra Ramos', satuan: '5 Kg', harga: '95.000' },
-            { image: require('../assets/images/Product/Produk4.png'), title: 'Beras Setra Ramos', satuan: '5 Kg', harga: '95.000' },
+            { id: 1, image: require('../assets/images/Product/Produk3.png'), title: 'Beras Setra Ramos', satuan: '5 Kg', harga: '95.000' },
+            { id: 2, image: require('../assets/images/Product/Produk2.png'), title: 'Beras Setra Ramos', satuan: '5 Kg', harga: '95.000' },
+            { id: 3, image: require('../assets/images/Product/Produk4.png'), title: 'Beras Setra Ramos', satuan: '5 Kg', harga: '95.000' },
         ],
     },
     {
         stor: 'Agen Smarty Mart 1', address: 'Kemayoran, Jakarta Pusat', listProduct: [
-            { image: require('../assets/images/Product/Produk3.png'), title: 'Beras Setra Ramos', satuan: '5 Kg', harga: '95.000' },
-            { image: require('../assets/images/Product/Produk2.png'), title: 'Beras Setra Ramos', satuan: '5 Kg', harga: '95.000' },
-            { image: require('../assets/images/Product/Produk4.png'), title: 'Beras Setra Ramos', satuan: '5 Kg', harga: '95.000' },
+            { id: 4, image: require('../assets/images/Product/Produk3.png'), title: 'Beras Setra Ramos', satuan: '5 Kg', harga: '95.000' },
+            { id: 5, image: require('../assets/images/Product/Produk2.png'), title: 'Beras Setra Ramos', satuan: '5 Kg', harga: '95.000' },
+            { id: 6, image: require('../assets/images/Product/Produk4.png'), title: 'Beras Setra Ramos', satuan: '5 Kg', harga: '95.000' },
         ],
     },
 ];
@@ -31,6 +31,7 @@ export default class Keranjang extends Component {
     state = {
         toggleCheckBox: false,
         idCheck: [],
+        Qty: [],
     }
 
     handleCheck = () => {
@@ -72,8 +73,37 @@ export default class Keranjang extends Component {
         }
     };
 
+    handleQtyProduct = () => {
+        const con = {};
+        dataProduct.forEach((x, i) => {
+            x.listProduct.forEach((item, index) => {
+                con[item.id] = 1;
+            });
+        });
+        this.setState({ Qty: con });
+    }
+
+    handlePlus = (id) => {
+        this.setState({
+            Qty: { ...this.state.Qty, [id]: this.state.Qty[id] + 1 },
+        });
+    }
+    handleMinus = (id) => {
+        if (this.state.Qty[id] > 1) {
+            this.setState({
+                Qty: { ...this.state.Qty, [id]: this.state.Qty[id] - 1 },
+            });
+        }
+    }
+
     componentDidMount() {
         this.handleIdCheck();
+        this.handleQtyProduct();
+    }
+
+    componentDidCatch() {
+        this.handleIdCheck();
+        this.handleQtyProduct();
     }
 
     render() {
@@ -100,6 +130,10 @@ export default class Keranjang extends Component {
                     dataProduct={dataProduct}
                     idCheck={this.state.idCheck}
                     CheckActive={this.CheckActive}
+                    handleQtyProduct={this.handleQtyProduct}
+                    Qty={this.state.Qty}
+                    handlePlus={this.handlePlus}
+                    handleMinus={this.handleMinus}
                 />
                 <View style={styles.Footer}>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
