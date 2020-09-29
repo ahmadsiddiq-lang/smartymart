@@ -27,7 +27,7 @@ export default class ProductList extends Component {
                                     <View style={{ flex: 1, justifyContent: 'flex-end' }}>
                                         {item.status === true ?
                                             <View style={styles.BoxQty}>
-                                                <TouchableOpacity onPress={() => handleQtyMinu(item.id, index)} activeOpacity={0.6}>
+                                                <TouchableOpacity onPress={() => handleQtyMinu(item.id, item.harga)} activeOpacity={0.6}>
                                                     <Ionicons name="remove" color={MainColor} size={sizeFont(4)} style={{ paddingHorizontal: 8 }} />
                                                 </TouchableOpacity>
                                                 {/* <TextInput selectionColor={MainColor} keyboardType="numeric" style={{
@@ -37,7 +37,7 @@ export default class ProductList extends Component {
                                                     textAlign: 'center',
                                                 }} /> */}
                                                 <Text>{Qty[0][item.id]}</Text>
-                                                <TouchableOpacity onPress={() => handleQtyPlus(item.id)} activeOpacity={0.6}>
+                                                <TouchableOpacity onPress={() => handleQtyPlus(item.id, item.harga)} activeOpacity={0.6}>
                                                     <Ionicons name="add" color={MainColor} size={sizeFont(4)} style={{ paddingHorizontal: 8 }} />
                                                 </TouchableOpacity>
                                             </View> :

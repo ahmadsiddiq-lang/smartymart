@@ -96,19 +96,20 @@ export default class Home extends Component {
         // dataProduct.forEach((x, i) => {
         //     con[x.id] = 1;
         // });
-        console.log(con);
-        // this.setState({ Qty: con });
+        // console.log(con);
+        this.setState({ Qty: con });
     }
 
-    handleQtyPlus = (id) => {
-        console.log(id);
+    handleQtyPlus = (id, harga) => {
+        // console.log(harga);
         if (this.state.Cart.length > 0) {
             this.setState({
                 Qty: [{ ...this.state.Qty[0], [id]: this.state.Qty[0][id] + 1 }],
             });
             this.state.Cart.forEach((item, index) => {
                 if (item.id === id) {
-                    this.state.Cart[index].harga = item.harga * (this.state.Qty[0][id] + 1);
+                    this.state.Cart[index].harga = harga * (this.state.Qty[0][id] + 1);
+                    // console.log(item.harga);
                     this.setState({
                         Cart: this.state.Cart,
                     });
@@ -116,15 +117,15 @@ export default class Home extends Component {
             });
         }
     }
-    handleQtyMinu = (id) => {
-        // console.log(this.state.Qty[id]);
+    handleQtyMinu = (id, harga) => {
+        // console.log(this.state.Qty[id]) = 1;
         if (this.state.Qty[0][id] > 1) {
             this.setState({
                 Qty: [{ ...this.state.Qty[0], [id]: this.state.Qty[0][id] - 1 }],
             });
             this.state.Cart.forEach((item, index) => {
                 if (item.id === id) {
-                    this.state.Cart[index].harga = item.harga / this.state.Qty[0][id];
+                    this.state.Cart[index].harga = harga / (this.state.Qty[0][id] - 1);
                     this.setState({
                         Cart: this.state.Cart,
                     });
