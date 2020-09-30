@@ -11,16 +11,16 @@ import { sizeFont, sizeHeight } from '../assets/responsive';
 const dataProduct = [
     {
         stor: 'Agen Smarty Mart 1', address: 'Kemayoran, Jakarta Pusat', listProduct: [
-            { id: 1, image: require('../assets/images/Product/Produk3.png'), title: 'Beras Setra Ramos', satuan: '5 Kg', harga: '95.000' },
-            { id: 2, image: require('../assets/images/Product/Produk2.png'), title: 'Beras Setra Ramos', satuan: '5 Kg', harga: '95.000' },
-            { id: 3, image: require('../assets/images/Product/Produk4.png'), title: 'Beras Setra Ramos', satuan: '5 Kg', harga: '95.000' },
+            { id: 1, image: require('../assets/images/Product/Produk3.png'), title: 'Beras Setra Ramos', satuan: '5 Kg', harga: 95000 },
+            { id: 2, image: require('../assets/images/Product/Produk2.png'), title: 'Beras Setra Ramos', satuan: '5 Kg', harga: 95000 },
+            { id: 3, image: require('../assets/images/Product/Produk4.png'), title: 'Beras Setra Ramos', satuan: '5 Kg', harga: 95000 },
         ],
     },
     {
         stor: 'Agen Smarty Mart 1', address: 'Kemayoran, Jakarta Pusat', listProduct: [
-            { id: 4, image: require('../assets/images/Product/Produk3.png'), title: 'Beras Setra Ramos', satuan: '5 Kg', harga: '95.000' },
-            { id: 5, image: require('../assets/images/Product/Produk2.png'), title: 'Beras Setra Ramos', satuan: '5 Kg', harga: '95.000' },
-            { id: 6, image: require('../assets/images/Product/Produk4.png'), title: 'Beras Setra Ramos', satuan: '5 Kg', harga: '95.000' },
+            { id: 4, image: require('../assets/images/Product/Produk3.png'), title: 'Beras Setra Ramos', satuan: '5 Kg', harga: 95000 },
+            { id: 5, image: require('../assets/images/Product/Produk2.png'), title: 'Beras Setra Ramos', satuan: '5 Kg', harga: 95000 },
+            { id: 6, image: require('../assets/images/Product/Produk4.png'), title: 'Beras Setra Ramos', satuan: '5 Kg', harga: 95000 },
         ],
     },
 ];
@@ -32,6 +32,7 @@ export default class Keranjang extends Component {
         toggleCheckBox: false,
         idCheck: [],
         Qty: [],
+        totalHarga: [],
     }
 
     handleCheck = () => {
@@ -42,14 +43,34 @@ export default class Keranjang extends Component {
                 con.push({ id: i, CheckBox: false });
             });
             this.setState({ idCheck: con });
+            this.setState({ totalHarga: [] });
         } else {
             dataProduct.forEach((x, i) => {
                 con.push({ id: i, CheckBox: true });
             });
             this.setState({ idCheck: con });
+            // console.log('masuk');
+            const harga = [];
+            dataProduct.forEach((item, index) => {
+                item.listProduct.forEach((subItem, subindex) => {
+                    harga.push(subItem);
+                });
+            });
+            this.setState({ totalHarga: harga });
         }
 
     };
+
+    handleTotalHarga = (item = [], Status) => {
+        if (Status) {
+            this.state.totalHarga.push(...item);
+            this.setState({ totalHarga: this.state.totalHarga });
+            // console.log(this.state.totalHarga);
+        } else {
+            const arr = this.state.totalHarga.filter(items => !item.includes(items));
+            this.setState({ totalHarga: arr });
+        }
+    }
 
     handleIdCheck = () => {
         const con = [];
@@ -96,6 +117,23 @@ export default class Keranjang extends Component {
         }
     }
 
+    handleHarga = () => {
+        let total = 0;
+        this.state.totalHarga.forEach((item, index) => {
+            total += item.harga;
+        });
+        // console.log(total);
+        return total;
+    }
+
+    // conver to rupiah
+    rupiah = (number) => {
+        var reverse = number.toString().split('').reverse().join(''),
+            thousand = reverse.match(/\d{1,3}/g);
+        thousand = thousand.join('.').split('').reverse().join('');
+        return thousand;
+    }
+
     componentDidMount() {
         this.handleIdCheck();
         this.handleQtyProduct();
@@ -134,11 +172,14 @@ export default class Keranjang extends Component {
                     Qty={this.state.Qty}
                     handlePlus={this.handlePlus}
                     handleMinus={this.handleMinus}
+                    handleHarga={this.handleHarga}
+                    rupiah={this.rupiah}
+                    handleTotalHarga={this.handleTotalHarga}
                 />
                 <View style={styles.Footer}>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <Text style={{ fontSize: sizeFont(3.5) }}>Sub Total</Text>
-                        <Text style={{ fontSize: sizeFont(3.5), color: MainColor }}>Rp. 485.000</Text>
+                        <Text style={{ fontSize: sizeFont(3.5), color: MainColor }}>Rp. {this.rupiah(this.handleHarga())}</Text>
                     </View>
                     <TouchableOpacity onPress={() => navigation.navigate('DetailPesanan')} activeOpacity={0.6} style={styles.BtnBeli}>
                         <Text style={{ color: fontWhite }}>Beli</Text>

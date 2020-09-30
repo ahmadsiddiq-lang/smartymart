@@ -25,7 +25,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 export default class Content extends Component {
     render() {
-        const { dataProduct, idCheck, CheckActive, handleQtyProduct, Qty, handlePlus, handleMinus } = this.props;
+        const { dataProduct, idCheck, CheckActive, handleQtyProduct, Qty, handlePlus, handleMinus, handleTotalHarga } = this.props;
         return (
             <View style={styles.Container}>
                 <ScrollView showsVerticalScrollIndicator={false}>
@@ -35,7 +35,7 @@ export default class Content extends Component {
                                 <View key={index} style={styles.BoxList}>
                                     <View style={styles.BoxHead}>
                                         <TouchableOpacity
-                                            onPress={() => CheckActive(index, idCheck[index].CheckBox)}
+                                            onPress={() => [CheckActive(index, idCheck[index].CheckBox), handleTotalHarga(item.listProduct, idCheck[index].CheckBox)]}
                                         >
                                             {
                                                 idCheck.length > 0 &&
