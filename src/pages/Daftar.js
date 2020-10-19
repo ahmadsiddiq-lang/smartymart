@@ -62,7 +62,6 @@ export default function Daftar({ navigation }) {
                         <View style={{ display: 'flex', flexWrap: 'nowrap', flex: 1 }}>
                             <Text style={{ fontSize: sizeFont(3), marginLeft: 10, fontFamily: 'Arial-Rounded', color: fontBlack1 }}>Saya setuju dengan <Text style={{ color: MainColor }}>Syarat & Ketentuan</Text> yang berlaku</Text>
                         </View>
-
                     </View>
                     <TouchableOpacity onPress={() => handleDaftar()} activeOpacity={0.6} style={styles.Btn}>
                         <Text style={{ color: fontWhite, fontSize: sizeFont(4) }}>Daftar</Text>
@@ -77,8 +76,8 @@ export default function Daftar({ navigation }) {
 const styles = StyleSheet.create({
     Container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
+        // justifyContent: 'center',
+        // alignItems: 'center',
         paddingHorizontal: 30,
     },
     ImageBackground: {
@@ -98,6 +97,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Arial-Rounded',
         marginTop: sizeHeight(10),
         marginBottom: sizeHeight(10),
+        textAlign: 'center',
     },
     Conten: {
         // borderWidth: 1,
@@ -106,21 +106,21 @@ const styles = StyleSheet.create({
     BoxInput: {
         borderBottomWidth: 1,
         borderBottomColor: borderBlack2,
-        marginBottom: 20,
+        marginBottom: sizeHeight(2),
     },
     Input: {
         paddingVertical: 0,
         fontSize: sizeFont(3.8),
-        marginVertical: 10,
+        marginVertical: sizeHeight(1),
         // letterSpacing: 0.8,
         // borderWidth: 1,
-        width: '90%',
+        // width: '80%',
     },
     Btn: {
         backgroundColor: MainColor,
-        paddingVertical: 8,
+        paddingVertical: sizeHeight(1),
         borderRadius: 20,
         alignItems: 'center',
-        marginVertical: 30,
+        marginVertical: sizeHeight(5),
     },
 });

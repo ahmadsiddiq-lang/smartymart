@@ -5,21 +5,21 @@ import { sizeFont, sizeHeight } from '../../assets/responsive';
 import { bgWhiteRGBA, fontWhite, MainColor } from '../../assets/colors';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-export default function HeaderHome() {
+export default function HeaderHome({ navigation }) {
     return (
         <View style={styles.Container}>
-            <View style={styles.Box}>
+            <TouchableOpacity activeOpacity={0.6} onPress={() => navigation.navigate('WarungTerdekat')} style={styles.Box}>
                 <Text style={{ fontSize: sizeFont(3), color: fontWhite }}>Pilih Agen</Text>
                 <View style={{ flexDirection: 'row' }}>
                     <Ionicons name="location" color={fontWhite} size={sizeFont(4)} />
                     <Text style={{ marginLeft: 10, fontSize: sizeFont(3.5), color: fontWhite }}>Agen Smarty Mart 1</Text>
                 </View>
-            </View>
+            </TouchableOpacity>
             <View style={[styles.Box, { flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end' }]}>
-                <TouchableOpacity activeOpacity={0.6} style={{ padding: 7, borderRadius: 100, backgroundColor: bgWhiteRGBA }}>
+                <TouchableOpacity onPress={() => navigation.navigate('Search')} activeOpacity={0.6} style={{ padding: 7, borderRadius: 100, backgroundColor: bgWhiteRGBA }}>
                     <Ionicons name="search" color={fontWhite} size={sizeFont(5)} />
                 </TouchableOpacity>
-                <TouchableOpacity activeOpacity={0.6} style={{ padding: 7, marginLeft: 15, borderRadius: 100, backgroundColor: bgWhiteRGBA }}>
+                <TouchableOpacity onPress={() => navigation.navigate('Keranjang')} activeOpacity={0.6} style={{ padding: 7, marginLeft: 15, borderRadius: 100, backgroundColor: bgWhiteRGBA }}>
                     <Ionicons name="cart" color={fontWhite} size={sizeFont(5)} />
                     <View style={styles.Circle}>
                         <Text style={{ color: fontWhite, fontSize: sizeFont(2.3) }}>4</Text>

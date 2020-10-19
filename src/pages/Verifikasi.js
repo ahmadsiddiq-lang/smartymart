@@ -66,7 +66,7 @@ export default function Verifikasi({ navigation }) {
                     </View>
                 </View>
                 <Text style={{ textAlign: 'center', marginVertical: sizeHeight(8), fontSize: sizeFont(3.3) }}>Kirim ulang kode verifikasi <Text style={{ color: MainColor, fontFamily: 'Arial-Rounded' }}>({'00:50'})</Text></Text>
-                <TouchableOpacity activeOpacity={0.6} style={styles.Btn} >
+                <TouchableOpacity onPress={() => navigation.navigate('Login')} activeOpacity={0.6} style={styles.Btn} >
                     <Text style={{ color: fontWhite, fontSize: sizeFont(4) }}>Verifikasi</Text>
                 </TouchableOpacity>
             </View>

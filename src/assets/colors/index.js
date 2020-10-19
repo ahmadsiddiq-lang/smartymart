@@ -1,7 +1,10 @@
 module.exports = {
     MainColor: '#F65257',
+    MainColor1: '#ff787c',
+    MainColor2: '#ff878b',
     bgWhite: 'white',
     bgWhiteRGBA: 'rgba(255, 255, 255, 0.3)',
+    bgWhiteRGBA1: 'rgba(255, 255, 255, 0.7)',
     bgBlack: 'black',
     bgBlack1: '#c2c2c2',
     bgBlack2: '#ebebeb',
@@ -10,6 +13,7 @@ module.exports = {
     fontBlack1: '#858585',
     fontBlack2: '#c2c2c2',
     fontBlack3: '#e3e3e3',
+    borderWhite: 'white',
     borderBlack: 'black',
     borderBlack2: '#c2c2c2',
     borderBlack3: '#e3e3e3',

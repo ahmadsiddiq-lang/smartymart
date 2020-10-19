@@ -15,7 +15,7 @@ export default function Login({ navigation }) {
         <TouchableOpacity activeOpacity={1} onPress={() => Keyboard.dismiss()} style={styles.Container}>
             <StatusBar translucent backgroundColor="transparent" barStyle="dark-content" />
             <Image style={styles.ImageBackground} source={require('../assets/images/Background.png')} />
-            <Text style={styles.Title}>Smarty <Text style={{ color: fontBlack }}>Mart</Text></Text>
+            <Text style={styles.Title}>Smarty <Text style={{ color: fontBlack, fontFamily: 'Arial-Rounded' }}>Mart</Text></Text>
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={styles.Conten}>
                     <View style={styles.BoxInput}>
@@ -24,9 +24,9 @@ export default function Login({ navigation }) {
                     </View>
                     <View style={styles.BoxInput}>
                         <Text style={{ fontFamily: 'Arial-Rounded', fontSize: sizeFont(3.3), color: fontBlack1 }}>Password</Text>
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                             <TextInput selectionColor={MainColor} style={styles.Input} secureTextEntry={visible} />
-                            <TouchableOpacity onPress={() => setVisible(e => !e)} activeOpacity={0.5} style={{ padding: 10, justifyContent: 'center' }}>
+                            <TouchableOpacity onPress={() => setVisible(e => !e)} activeOpacity={0.5} style={{ justifyContent: 'center', padding: 8 }}>
                                 <FontAwesome5 name={visible ? 'eye-slash' : 'eye'} solid color={fontBlack1} />
                             </TouchableOpacity>
                         </View>
@@ -34,7 +34,7 @@ export default function Login({ navigation }) {
                     <TouchableOpacity onPress={() => navigation.dispatch(StackActions.replace('Home'))} activeOpacity={0.5} style={styles.Btn}>
                         <Text style={{ color: fontWhite, fontSize: sizeFont(4) }}>Masuk</Text>
                     </TouchableOpacity>
-                    <Text style={{ textAlign: 'center', fontSize: sizeFont(3.3), color: fontBlack1, fontFamily: 'Arial-Rounded' }}>Belum memiliki akun ? <Text onPress={() => navigation.dispatch(StackActions.replace('Daftar'))} style={{ color: MainColor, fontSize: sizeFont(3.5) }}>Daftar</Text></Text>
+                    <Text style={{ textAlign: 'center', fontSize: sizeFont(3.3), color: fontBlack1, fontFamily: 'Arial-Rounded' }}>Belum memiliki akun ? <Text onPress={() => navigation.dispatch(StackActions.replace('Daftar'))} style={{ color: MainColor, fontSize: sizeFont(3.5), fontFamily: 'Arial-Rounded' }}>Daftar</Text></Text>
                 </View>
             </ScrollView>
         </TouchableOpacity>
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
         marginVertical: 10,
         // letterSpacing: 0.8,
         // borderWidth: 1,
-        width: '90%',
+        width: '85%',
     },
     Btn: {
         backgroundColor: MainColor,
