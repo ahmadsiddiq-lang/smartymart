@@ -36,34 +36,35 @@ export default class Keranjang extends Component {
     }
 
     handleCheck = () => {
-        this.setState({ toggleCheckBox: !this.state.toggleCheckBox });
-        const con = [];
-        if (this.state.toggleCheckBox) {
-            dataProduct.forEach((x, i) => {
-                con.push({ id: i, CheckBox: false });
-            });
-            this.setState({ idCheck: con });
-            this.setState({ totalHarga: [] });
-        } else {
-            dataProduct.forEach((x, i) => {
-                con.push({ id: i, CheckBox: true });
-            });
-            this.setState({ idCheck: con });
-            // console.log('masuk');
-            const harga = [];
-            dataProduct.forEach((item, index) => {
-                item.listProduct.forEach((subItem, subindex) => {
-                    harga.push(subItem);
-                });
-            });
-            this.setState({ totalHarga: harga });
-        }
+        // this.setState({ toggleCheckBox: !this.state.toggleCheckBox });
+        // const con = [];
+        // if (this.state.toggleCheckBox) {
+        //     dataProduct.forEach((x, i) => {
+        //         con.push({ id: i, CheckBox: false });
+        //     });
+        //     this.setState({ idCheck: con });
+        //     this.setState({ totalHarga: [] });
+        // } else {
+        //     dataProduct.forEach((x, i) => {
+        //         con.push({ id: i, CheckBox: true });
+        //     });
+        //     this.setState({ idCheck: con });
+        //     // console.log('masuk');
+        //     const harga = [];
+        //     dataProduct.forEach((item, index) => {
+        //         item.listProduct.forEach((subItem, subindex) => {
+        //             harga.push(subItem);
+        //         });
+        //     });
+        //     this.setState({ totalHarga: harga });
+        // }
 
     };
 
-    handleTotalHarga = (item = [], Status) => {
+    handleTotalHarga = (item, Status) => {
         if (Status) {
             this.state.totalHarga.push(...item);
+            // this.setState({ totalHarga: this.state.totalHarga });
             this.setState({ totalHarga: this.state.totalHarga });
             // console.log(this.state.totalHarga);
         } else {
@@ -104,34 +105,47 @@ export default class Keranjang extends Component {
         this.setState({ Qty: con });
     }
 
-    handlePlus = (id) => {
+    handlePlus = (id, harga) => {
         this.setState({
             Qty: { ...this.state.Qty, [id]: this.state.Qty[id] + 1 },
         });
+        this.state.totalHarga.forEach((item, index) => {
+            if (item.id === id) {
+                this.state.totalHarga[index].harga = harga * (this.state.Qty[id] + 1);
+                this.setState({ totalHarga: this.state.totalHarga });
+            }
+        });
     }
-    handleMinus = (id) => {
+    handleMinus = (id, harga) => {
         if (this.state.Qty[id] > 1) {
             this.setState({
                 Qty: { ...this.state.Qty, [id]: this.state.Qty[id] - 1 },
+            });
+            this.state.totalHarga.forEach((item, index) => {
+                if (item.id === id) {
+                    // console.log(harga / (this.state.Qty[id] - 1));
+                    this.state.totalHarga[index].harga = harga / (this.state.Qty[id] - 1);
+                    this.setState({ totalHarga: this.state.totalHarga });
+                }
             });
         }
     }
 
     handleHarga = () => {
-        let total = 0;
-        this.state.totalHarga.forEach((item, index) => {
-            total += item.harga;
-        });
-        // console.log(total);
-        return total;
+        // let total = 0;
+        // this.state.totalHarga.forEach((item, index) => {
+        //     total += item.harga;
+        // });
+        // // console.log(total);
+        // return total;
     }
 
     // conver to rupiah
     rupiah = (number) => {
-        var reverse = number.toString().split('').reverse().join(''),
-            thousand = reverse.match(/\d{1,3}/g);
-        thousand = thousand.join('.').split('').reverse().join('');
-        return thousand;
+        // var reverse = number.toString().split('').reverse().join(''),
+        //     thousand = reverse.match(/\d{1,3}/g);
+        // thousand = thousand.join('.').split('').reverse().join('');
+        // return thousand;
     }
 
     componentDidMount() {

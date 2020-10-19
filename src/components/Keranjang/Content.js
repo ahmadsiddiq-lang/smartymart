@@ -65,9 +65,9 @@ export default class Content extends Component {
                                                             <Text style={{ fontSize: sizeFont(3.5) }}>Beras Setra Ramos</Text>
                                                             <Text style={{ fontSize: sizeFont(2.5), color: fontBlack1 }}>5 Kg</Text>
                                                             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                                                                <Text style={{ fontSize: sizeFont(3.3) }}>Rp. 95.000</Text>
+                                                                <Text style={{ fontSize: sizeFont(3.3) }}>Rp. {subItem.harga}</Text>
                                                                 <View style={styles.BoxQty}>
-                                                                    <TouchableOpacity onPress={() => handleMinus(subItem.id)} activeOpacity={0.6}>
+                                                                    <TouchableOpacity onPress={() => handleMinus(subItem.id, subItem.harga)} activeOpacity={0.6}>
                                                                         <Ionicons name="remove" color={MainColor} size={sizeFont(4)} style={{ paddingHorizontal: 8 }} />
                                                                     </TouchableOpacity>
                                                                     {
@@ -79,7 +79,7 @@ export default class Content extends Component {
                                                                             textAlign: 'center',
                                                                         }} />
                                                                     }
-                                                                    <TouchableOpacity onPress={() => handlePlus(subItem.id)} activeOpacity={0.6}>
+                                                                    <TouchableOpacity onPress={() => handlePlus(subItem.id, subItem.harga)} activeOpacity={0.6}>
                                                                         <Ionicons name="add" color={MainColor} size={sizeFont(4)} style={{ paddingHorizontal: 8 }} />
                                                                     </TouchableOpacity>
                                                                 </View>
